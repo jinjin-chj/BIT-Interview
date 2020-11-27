@@ -22,7 +22,7 @@ public class LogicalOp {
 }
 
 
-3. 2의 배수 또는 3의 배수? 를 코딩을 하게 되면?
+3. 2의 배수 또는 3의 배수? 를 코딩을 하게 되면? 
 
 public class LogicalOp {
 	public static void main(String[] args) {
