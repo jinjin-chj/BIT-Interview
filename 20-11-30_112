@@ -1,7 +1,6 @@
 #5~6강
 
 1.반복문 3가지의 무한루프 만드는 방법은?
-
  - for(;;) {
     }
  - while(true) {
@@ -9,7 +8,7 @@
  - do {
     } while(true)
     
-    
+	
 2.구구단 출력을 하시오.
 public static void main(String[] args) {
 		for(int i=2; i<10; i++) {
@@ -18,6 +17,7 @@ public static void main(String[] args) {
 			}
 		}
 	}
+
 
 3.짝수단만 찍으시오.
 public static void main(String[] args) {
@@ -29,6 +29,7 @@ public static void main(String[] args) {
 			}
 		}
 
+
 4.3의 배수인 단만 출력하시오.
 public static void main(String[] args) {
 		for(int i = 3; i <10; i++) {
@@ -39,7 +40,8 @@ public static void main(String[] args) {
 			}
 		}
         
-5.아래의 Star를 찍으시오.
+		
+5.아래의 Star를 찍으시오. (별찍기, 피라미드)
 (1)
 *****
 *****
@@ -107,11 +109,63 @@ public static void main(String[] args) {
   ***
  *****
 ******* 
+public static void main(String[] args) {
+		for(int i = 1; i<=4; i++) {
+			
+			for(int j = 1; j <= 4-i; j++) {
+				System.out.print(" ");
+			}
+			
+			for(int j = 1; j <= i*2-1; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+				
+	}	//성공 ㅠ
 
 
 6.함수는 어떻게 알아 볼수 있는가?
+(1)public (2)static (3)void (4)main (5)(String[] args) { 
+}
+함수이름 뒤에 ()중괄호 나옴, 중괄호 안에 매개변수(변수선언형식)가 있을 수도, 없을 수도.
+
+cf 1. 자바로 짜는 모든 프로그램은 "main"을 무조건 갖고있음
+cf 2. 메소드(=함수) 이름이 main인 이유는? 
+	: 자바에서 정한 규칙임 ㅇㅇ 프로그램의 시작은 main에서 부터!
+
+
+
 7.함수는 어떻게 만드는가?
+함수이름(변수선언) {
+}
+예:
+public static void hiEveryone(int age){	
+}
+-> 매개변수가 하나인 메소드의 정의(함수 생성) 
+cf 1. 매개변수는 없을 수도 있음.
+cf 2. 매개변수 = 파라미터 = 인자
+cf 3. 매개변수에는 변수의 선언이 온다.(=메모리 할당)
+
+
+
 8.함수는 어떻게 써먹는가?
+함수이름(데이터);
+-> 해당 파라미터에 맞는 데이터(값,value) 입력하며 hiEveryone함수 호출(함수 사용) / 
+	매개변수 없을 경우 괄호 안 공백.
+	
+예:
+hiEveryone(12);
+-> int age에 맞는 정수형 value 인 12 대입
+	  => int age = 12;
+
+cf. 그 외 함수의 특성
+- 함수는 언제 써먹는가? 똑같은 소스코드 두 번 이상 들어갈 때 (중복될 때)
+- 함수 1개는 되도록 1개의 기능만.
+- 함수 안에 함수 못 들어감. class 안에 함수가 들어가는 거 ㅇㅇ
+- JVM(Java Virtual Machine)이 만들어놓은 함수를 호출(써먹는다)한다.
+
+
 
 9.아래의 함수를 만드시오.
 함수이름: starPrint
@@ -127,6 +181,21 @@ public static void main(String[] args) {
 ***
 ****
 *****
+public static void main(String[] args) {
+		starPrint(3);
+		starPrint(5);
+				
+	}
+	
+	public static void starPrint(int num) {
+		for(int i = 1; i <= num; i++) {
+			for(int j=1; j<=i; j++) {
+			System.out.print("*");
+			}
+			System.out.println();
+		}
+		
+	}
 
  
 10.아래의 함수를 만들고,해당함수를 호출하여 확인하시오. 
@@ -134,7 +203,28 @@ public static void main(String[] args) {
 매개변수: double type 1개
 리턴: 수 우 미 양 가 중 하나의 char 타입
 
+-모르겠어요~!~!
+
+
 11.매개변수 하나를 받아 원의 넓이를 리턴하는 함수를 작성하시오.
-
+public static void main(String[] args) {
+		System.out.println("원 넓이 : " + calCircleArea(3));
+	} 
+	
+	public static double calCircleArea(double rad) {
+		final double PI = 3.14;
+		return (rad * rad * PI);
+		
+	}
+	
+	
 12.매개변수 두개를 받아, 사각형의 넓이를 리턴하는 함수를 작성하시오.
-
+public static void main(String[] args) {
+		System.out.println("사각형 넓이 : " + calSquareArea(3,5));
+	} 
+	
+	public static double calSquareArea(double height, double width) {
+		return (height * width);	
+	}
+	
+	
