@@ -108,7 +108,13 @@ cf. 1. default는 기본값으로, break 걸리지 않는 경우 n값과 관계�
 
 5.아래를 프로그래밍 하시오.
 - int num = -10 을 할당후 해당 정수에 대한 절대값을 출력하는 프로그램을 작성하시오.
-int num = -10;
+public static void main(String[] args) {
+	int num = -10;
+	if(num<0) {
+		num = -1 * num;
+	}
+	System.out.println(num);
+}
 
 
 6.반복문에서 while 문과 do while 문의 차이는?
@@ -163,7 +169,8 @@ for(int i = 1; i <= 100; i++) {
    
 
 11.반복문에서의 break 와 continue 를 설명하시오.
-
+break에 걸림 & true ->  조건문 탈출.
+continue에 걸림 & true -> 다시 조건 검사로.
 
 
 12. 아래를 프로그래밍 하시오.
@@ -211,7 +218,35 @@ for(int i = 1; i <= 100; i++) {
    오백원짜리 1개
    백원짜리 0개
 
-
+public static void main(String[] args) {
+		int money = 126500;
+		int m500, m100, m50, m10, m5, m1;
+		int temp;  
+		
+		m500 = money/50000;
+		temp = money - (m500*50000);
+		
+		m100 = temp/10000;
+		temp = temp - (m100 *10000);
+		
+		m50 = temp/5000;
+		temp = temp - (m50 *5000);
+		
+		m10 = temp/1000;
+		temp = temp - (m10*1000);
+		
+		m5 = temp/500;
+		temp = temp - (m5 *500);
+		
+		m1 = temp/100;
+		
+		System.out.println("50,000원: " + m500 + "장");
+		System.out.println("10,000원: " + m100 + "장");
+		System.out.println("5,000원: " + m50 + "장");
+		System.out.println("1,000원: " + m10 + "장");
+		System.out.println("500원: " + m5 + "개");
+		System.out.println("100원: " + m1 + "개");	
+	}
 ======================================================================================
 //금일 연습 프로그래밍 내용
 
