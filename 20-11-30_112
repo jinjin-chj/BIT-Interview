@@ -1,0 +1,140 @@
+#5~6강
+
+1.반복문 3가지의 무한루프 만드는 방법은?
+
+ - for(;;) {
+    }
+ - while(true) {
+    }
+ - do {
+    } while(true)
+    
+    
+2.구구단 출력을 하시오.
+public static void main(String[] args) {
+		for(int i=2; i<10; i++) {
+			for(int j=1; j<10; j++) {
+				System.out.println(i + " x " + j + " = " + (i*j));
+			}
+		}
+	}
+
+3.짝수단만 찍으시오.
+public static void main(String[] args) {
+		for(int i = 2; i <10; i++) {
+			for(int j =1; j<10; j++) {
+				if(i%2==0) {
+				System.out.println(i + " x " + j + " = " + (i*j));
+				}
+			}
+		}
+
+4.3의 배수인 단만 출력하시오.
+public static void main(String[] args) {
+		for(int i = 3; i <10; i++) {
+			for(int j =1; j<10; j++) {
+				if(i%3==0) {
+				System.out.println(i + " x " + j + " = " + (i*j));
+				}
+			}
+		}
+        
+5.아래의 Star를 찍으시오.
+(1)
+*****
+*****
+*****
+*****
+*****
+public static void main(String[] args) {	
+		for(int i = 1; i <=5; i++) {
+			for(int j = 1; j <=5; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+
+(2)		
+*
+**
+***
+****
+*****
+public static void main(String[] args) {
+		for(int i = 1; i <=5; i++) {
+			for(int j = 1; j <=i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+
+(3)
+*****
+****
+***
+**
+*
+public static void main(String[] args) {
+		for(int i = 5; i >0; i--) {
+			for(int j = 1; j <=i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+        
+(4)
+    *
+   **
+  ***
+ ****
+*****		
+public static void main(String[] args) {
+		for(int i = 5; i >0; i--) {	
+			for(int j = 1; j <=i-1; j++) {
+					System.out.print(" ");
+			}
+			
+			for(int j = 5; j >=i; j--) {
+				System.out.print("*");
+			}
+			
+			System.out.println();
+		}			
+	}
+    
+(5)    
+   *
+  ***
+ *****
+******* 
+
+
+6.함수는 어떻게 알아 볼수 있는가?
+7.함수는 어떻게 만드는가?
+8.함수는 어떻게 써먹는가?
+
+9.아래의 함수를 만드시오.
+함수이름: starPrint
+매개변수: type 1개
+기능: 매개변수에 3를 전달하면 3층 석탑, 5를 전달하면 5층석탑
+예) 3전달시 3층석탑
+*
+**
+***
+5전달시 5층석탑
+*
+**
+***
+****
+*****
+
+ 
+10.아래의 함수를 만들고,해당함수를 호출하여 확인하시오. 
+함수이름: getGrade()
+매개변수: double type 1개
+리턴: 수 우 미 양 가 중 하나의 char 타입
+
+11.매개변수 하나를 받아 원의 넓이를 리턴하는 함수를 작성하시오.
+
+12.매개변수 두개를 받아, 사각형의 넓이를 리턴하는 함수를 작성하시오.
+
