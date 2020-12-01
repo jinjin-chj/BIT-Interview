@@ -173,6 +173,7 @@ strPrint.printReverseTriangle(3);
 **
 *
 
+
 public class StarPrint {
 	int num;
 
@@ -184,42 +185,43 @@ public class StarPrint {
 		this.num = num;
 	}
 	
-	public int printTriangle() {
+	public void printTriangle(int num) {
 		for(int i = 1; i <=num; i++) {
 			for(int j = 1; j <=i; j++) {
 				System.out.print("*");
 			}
 			System.out.println();	
 			}
-		return num;
 	}
 		
-	public int printReverseTriangle() {
+	public void printReverseTriangle(int num) {
 		for(int i = num; i > 0; i--) {
 			for(int j = 1; j <=i; j++) {
 				System.out.print("*");
 			}
 			System.out.println();	
 		}
-		return num;
+		
 	}
 					
 }
----------------------------------------------------------
+
+------------------------------------
+
 public class SrarPrintMain {
 
 	public static void main(String[] args) {
 		StarPrint starprint = new StarPrint();
-		starprint.setNum(3);
 		
-		System.out.print(starprint.printTriangle());
+		starprint.printTriangle(3);
 		System.out.println();
-		System.out.print(starprint.printReverseTriangle());
+		starprint.printReverseTriangle(3);
+
 
 	}
 
 }
-------------------------------------근데 결과에 자꾸 3이 출력됨...
+
 
 
 12.아래의 프로그래밍을 작성하시오.
@@ -239,29 +241,30 @@ public class Gugudan {
 		this.num = num;
 	}
 	
-	public int printGugu() {
+	public void printGugu(int num) {
 		for(int i = 1; i<=num; i++) {
 			for(int j = 1; j <10; j++) {
 				System.out.println(i + " x " + j + " = " + (i * j));
 			}	
 		}
-		return num;
 		
 	}
 }
 
------------------------------------------------------------------------
+------------------------------------------------------
+
 public class GugudanMain {
 
 	public static void main(String[] args) {
 		Gugudan gugudan = new Gugudan();
-		gugudan.setNum(7);
 		
-		System.out.println(gugudan.printGugu());
+		gugudan.printGugu(7);
+	
 	}
 
 }
---------------------------------------------------------근데 자꾸 결괏값 마지막에 num이 출력됨..
+
+--------------------------------------------------------
 
 
 13. 아래의 BankAccount 객체에 대하여 그림을 그리시오. 그림.
