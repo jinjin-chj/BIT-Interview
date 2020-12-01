@@ -1,0 +1,273 @@
+#6~7강
+
+1.아래가 의도하지 않은 결과를 나타내는 이유를 설명하시오.
+char ch = '가';
+System.out.println(ch + '\n')
+
+- char형 메모리에 문자를 넣으면 그 문자에 해당하는 문자표(유니코드표)에 있는 코드값이 들어간다.(문자를 숫자로 인코딩)
+- ch + '\n'에서 '\n'이 문자로 인식되어 char + char -> CPU연산시 int형으로 자동 형 변환된다.
+- 따라서 int + int 가 됨 ->  결괏값은 유니코드표 상 ('가' 에 해당하는 코드값) + ('\n'에 해당하는 코드값)의 합인 44042가 출력된다.
+- 그러므로 의도한 문자 입력 결과 출력을 위해선 (ch +"\n") 로 수정해야 한다.
+
+
+2.변수의 scope 는?
+- scope: (가시성의) 범위, 영역... { }
+- 스코프는 중복 가능하다. 
+
+
+3.지역변수?
+- 함수 안에 선언된 변수
+- 같은 영역 내에서 동일 이름의 변수 선언 불가
+
+
+4.펙토리얼을 구하는 재귀 함수를 만드시오.
+- 재귀함수? 함수 안에서 자기 자신을 또 호출하는 함수. (대표적인 예: 팩토리얼!)
+f(n) = n * f(n-1) (n>1)
+     = 1  (n=1)
+
+public static void main(String[] args) {
+		System.out.println(factorial(3));
+	}
+	
+	public static int factorial(int n) {
+		if(n == 1)
+			return 1;
+		else
+			return n * factorial(n-1);	
+	}
+  
+  
+5.클래스의 구성요소는 무엇인가?
+- 클래스 = 데이터(변수) + 기능(메소드)
+  ㄴ 데이터: 프로그램상에서 유지하고 관리해야 할 데이터
+  ㄴ 기능: 데이터를 처리하고 조작하는 기능
+
+
+6.원의 넓이는 구하는 프로그램을 아래와 같이 작성하시오.
+-가. 원클래스를 만들것
+-나. 메인 메소드를 가진 다른 클래스에서 원 객체를 생성할것
+
+가. 원클래스
+public class RE_Circle {
+	double radious;
+
+	public double getRadious() {
+		return radious;
+	}
+
+	public void setRadious(double radious) {
+		this.radious = radious;
+	}
+	
+	public double getArea() {
+		final double PI = 3.14;
+		return radious * radious * PI;
+	}
+	
+}
+
+나. 원 객체 생성 클래스
+public class RE_CircleMain {
+
+	public static void main(String[] args) {
+		RE_Circle circle = new RE_Circle();
+		circle.setRadious(5);
+		
+		double area = circle.getArea();
+		System.out.println("원 넓이: " + area);
+
+	}
+
+}
+
+
+7.객체란 무엇인가?
+- 객체= 인스턴스
+- 클래스를 인스턴스화 하는 것을 객체화 라고 함.
+
+
+8. 아래의 클래스에 대하여, 메모리 그림을 그리시오. 그림.
+
+Rectangle rec = new Rectangle();
+ 
+public class Rectangle {
+	int height;
+	int width;
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	
+	public int getArea() {
+		return width * height;
+	}
+	
+}
+
+
+9.클래스와 객체의 차이는 무엇인가?
+- 클래스는 CPU가 알아들을 수 있게끔 컴파일해놓음. 인스턴스에서 써먹을 데이터들 정리해놓은거
+- 객체는 더 큰범위 .뭐냐.
+
+
+10.아래의 프로그램을 작성하시오.
+-1 부터 num 까지 합을 구하는 class 를 작성하도록 하시오.
+
+public class Sum {		
+		// 1~num까지 합을 구하는 클래스 작성.
+	
+	int num;
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
+	public int getSum() {
+		int sum = 0;
+		for(int i=1; i<=100; i++) {
+
+			sum = sum + i;
+		}
+		return sum;
+	}	
+-------------------------------------------
+public class SumMain {
+
+	public static void main(String[] args) {
+		Sum sum = new Sum();
+		sum.setNum(100);
+		
+		System.out.println(sum.getSum());
+
+	}
+
+
+11.아래의 클래스를 작성하시오.
+StraPrint strPrint = new StarPrint();
+
+strPrint.printTriangle(3); 
+System.out.println();
+strPrint.printReverseTriangle(3); 
+===============================
+*
+**
+***
+
+***
+**
+*
+
+public class StarPrint {
+	int num;
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
+	public int printTriangle() {
+		for(int i = 1; i <=num; i++) {
+			for(int j = 1; j <=i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();	
+			}
+		return num;
+	}
+		
+	public int printReverseTriangle() {
+		for(int i = num; i > 0; i--) {
+			for(int j = 1; j <=i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();	
+		}
+		return num;
+	}
+					
+}
+---------------------------------------------------------
+public class SrarPrintMain {
+
+	public static void main(String[] args) {
+		StarPrint starprint = new StarPrint();
+		starprint.setNum(3);
+		
+		System.out.print(starprint.printTriangle());
+		System.out.println();
+		System.out.print(starprint.printReverseTriangle());
+
+	}
+
+}
+------------------------------------근데 결과에 자꾸 3이 출력됨...
+
+
+12.아래의 프로그래밍을 작성하시오.
+
+Gugudan gugudan = new Gugudan();
+gugudan.printGugu(10);  //1단부터 10단까지 출력
+gugudan.printGugu(20);  //1단부터 20단까지 출력
+----------------------------------------------------------------
+public class Gugudan {
+	int num;
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
+	public int printGugu() {
+		for(int i = 1; i<=num; i++) {
+			for(int j = 1; j <10; j++) {
+				System.out.println(i + " x " + j + " = " + (i * j));
+			}	
+		}
+		return num;
+		
+	}
+}
+
+-----------------------------------------------------------------------
+public class GugudanMain {
+
+	public static void main(String[] args) {
+		Gugudan gugudan = new Gugudan();
+		gugudan.setNum(7);
+		
+		System.out.println(gugudan.printGugu());
+	}
+
+}
+--------------------------------------------------------근데 자꾸 결괏값 마지막에 num이 출력됨..
+
+
+13. 아래의 BankAccount 객체에 대하여 그림을 그리시오. 그림.
+   BankAccount ref1 = new BankAccount();
+   BankAccount ref2 = ref1;
+
+
+
+ 
