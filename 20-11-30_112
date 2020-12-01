@@ -156,7 +156,7 @@ cf 3. 매개변수에는 변수의 선언이 온다.(=메모리 할당)
 	
 예:
 hiEveryone(12);
--> int age에 맞는 정수형 value 인 12 대입
+-> int age에 맞는 정수형 value 인 12 대입 (value값만 대입!!! int 12모양 아님!!!!)
 	  => int age = 12;
 
 cf. 그 외 함수의 특성
