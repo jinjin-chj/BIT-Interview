@@ -140,7 +140,7 @@ public class Sum {
 	
 	public int getSum() {
 		int sum = 0;
-		for(int i=1; i<=100; i++) {
+		for(int i=1; i<=num; i++) {
 
 			sum = sum + i;
 		}
@@ -191,7 +191,7 @@ public class StarPrint {
 				System.out.print("*");
 			}
 			System.out.println();	
-			}
+		}
 	}
 		
 	public void printReverseTriangle(int num) {
