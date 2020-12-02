@@ -325,8 +325,50 @@ public class Test {
 	}
 }
 <메인>
+import java.util.Scanner;
 
+public class MoneyMain {
+
+	public static void main(String[] args) {
+		// 화폐 매수 구하는 프로그램 만들기
+		Scanner scanner = null;
+		while(true) {
+			scanner = new Scanner(System.in);
+			System.out.println("금액을 입력하세요.");
+			int money = scanner.nextInt();
+			
+			Money result = new Money(money);
+			result.temp();
+			
+			System.out.println("계속 하시겠습니까");
+			char ch = scanner.next().charAt(0);
+			if (ch == 'Y' || ch == 'y')
+				continue;
+			else
+				break;
+		}
+		scanner.close();
+	}
+
+}
 <출력>
+136000
+오만원 : 2장
+  만원 : 3장
+오천원 : 1장
+  천원 : 1장
+오백원 : 0개
+  백원 : 0개
+계속 하시겠습니까
+y
+1456000
+오만원 : 29장
+  만원 : 0장
+오천원 : 1장
+  천원 : 1장
+오백원 : 0개
+  백원 : 0개
+계속 하시겠습니까
 
 
 7.자바의 명명 규칙에 대하여 설명하시오.
