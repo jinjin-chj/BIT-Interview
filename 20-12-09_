@@ -76,6 +76,40 @@ public class TryLotto {
 
 	}
 
+<클래스>
+
+package Wed;
+
+public class TryBoxClass {
+	private int num;
+	private String contents;
+	
+	TryBoxClass(int num, String contents){
+		this.num = num;
+		this.contents = contents;
+	}
+	
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public String toString() {
+		return contents;
+	}
+	
+	
+}
+
 
 7.양의 정수 10개를 랜덤생성하여, 배열에 저장하고, 배열에 있는 정수 중에서 3의 배수만 출력해보자.
 package Wed;
