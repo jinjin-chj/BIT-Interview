@@ -178,9 +178,14 @@ class ColorPoint02 extends Point {
 	}
 
 	public String toString() {
+		System.out.print(getColor() + "색의 " + "(" + getX() + "," + getY() + ")의 점");
+		return"";
+		
+		/* 난 이렇게 했는데 위가 더 간단해서 좋음!!
 		String tmp;
 		tmp = (getColor() + "색의 " + "(" + getX() + "," + getY() + ")의 점");
 		return tmp;
+		*/ 
 	}
 
 }
