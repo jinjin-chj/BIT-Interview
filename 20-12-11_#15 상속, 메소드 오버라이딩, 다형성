@@ -1,0 +1,180 @@
+#15 상속, 메소드 오버라이딩, 다형성
+
+1.is a 관계와 has a 관계에 대하여 설명하시오.
+- is-a 관계: 노트북은 컴퓨터이다. B가 A를 상속하는 관계. (상속O)
+- has-a 관계: CPU는 컴퓨터이다. A가 B를 포함하고 있거나 일부를 포함하고 있는 관계. (상속X)
+
+
+2.다형성이란 무엇인가?
+- polymorphism. 객체 지향 언어(자바)의 가장 큰 특성 4가지 중 하나.
+- "부모 = 자식"
+- class B extends A {} 
+- 부모클래스(A) 변수(ab) = new 자식클래스(B)();
+-> ab라는 방의 데이터 타입은 A이다. 자식클래스B가 부모클래스A를 상속받을 때, 
+  자식클래스B의 데이터 타입과 상관없이 부모클래스A를 다 받아낼 수 있다.
+  즉, 형 변환이 불필요함.
+
+cf. 클래스에 배열이 포함돼도 다형성 적용 가능.
+cf. 손자클래스가 있을 경우도 가능.
+cf. 반대의 경우인 "자식 = 부모"는 불가능.
+  Why? 아예 메모리 상 자식클래스를 가지고 있지도 않기 때문에 접근할 수 없음.
+
+
+3.아래가 되지 않는 이유에 대하여 메모리 그림으로 설명하시오.
+MobilePhone(부모) SmartPhone(자식)
+SmartPhone s = new MobilePhone();
+
+그렸는데 첨부 어떻게 하는지 모름.
+
+
+4.메소드 오버라이딩 이란?
+- 전제: 반드시 "상속" 관계에서 가능.
+- '함수가 다 똑같은데 구현 내용만 다른 것.'
+- 부모- 자식클래스의 함수(명, 리턴 타입, 파라미터)가 모두 동일하나, 구현 부분(프린트)만 달리하는 것.
+- 표현 방식: 자식클래스의 A메소드가 부모클래스의 동일한 A메소드를 오버라이딩 한다..
+- "덮어쓴다!" -> 오버라이딩 하게 되면, 해당 메소드의 구현 부분이 자식껄로 덮어씌워짐.
+- 즉, 오버라이딩은 자식꺼~~ (손자 있으면 손자꺼)
+
+- 오버라이딩 된 메소드를 외부에서 호출하는 것은 불가능하나, 
+  인스턴스 내에서 super키워드 통해서 부모 클래스의 원 구현부분 호출 가능함.
+- 인스턴스 변수와 클래스 변수는 오버라이딩 대상이 아니다.
+
+
+
+5.갬블링 게임을 만들어보자. 
+두 사람이 게임을 진행한다. 
+이들의 이름을 키보드로 입력 받으며 각 사람은 Person 클래스로 작성하라. 
+그러므로 프로그램에는 2개의 Person 객체가 생성되어야 한다. 
+두 사람은 번갈아 가면서 게임을 진행하는데 
+각 사람이 자기 차례에서 <Enter> 키를 입력하면, 3개의 난수가 발생되고 
+이 숫자가 모두 같으면 승자가 되고 게임이 끝난다. 
+난수의 범위를 너무 크게 잡으면 3개의 숫자가 일치하게 나올 가능성이 적기 때문에 
+숫자의 범위는 1~3까지로 한다.
+
+1번째 선수 이름>>수희
+2번째 선수 이름>>연수
+[수희]:
+	3  1  1  아쉽군요!
+[연수]:
+	3  1  3  아쉽군요!
+[수희]:
+	2  2  1  아쉽군요!
+[연수]:
+	1  1  2  아쉽군요!
+[수희]:
+	3  3  3  수희님이 이겼습니다!
+
+
+6.문제 10의 갬블링 게임을 n명이 하도록 수정하라. 
+실행 예시와 같이 게임에 참여하는 선수의 수를 입력받고 각 선수의 이름을 입력받도록 수정하라.
+
+겜블링 게임에 참여할 선수 숫자>>3
+1번째 선수 이름>>황
+2번째 선수 이름>>이
+3번째 선수 이름>>김
+[황]:
+	2  3  3  아쉽군요!
+[이]:
+	1  2  2  아쉽군요!
+[김]:
+	2  2  3  아쉽군요!
+[황]:
+	3  2  2  아쉽군요!
+[이]:
+	1  1  3  아쉽군요!
+[김]:
+	2  2  1  아쉽군요!
+[황]:
+	2  2  2  황님이 이겼습니다!
+
+
+7.다음을 만족하는 클래스 Employee를 작성하시오
+(8번문제부터는 이것과 관련된 문제입니다).
+
+- 클래스 Employee(직원)은 클래스 Regular(정규직)와 Temporary(비정규직)의 상위 클래스
+- 필드: 이름, 나이, 주소, 부서, 월급 정보를 필드로 선언
+- 생성자 : 이름, 나이, 주소, 부서를 지정하는 생성자 정의
+- 메소드 printInfo() : 인자는 없고 자신의 필드 이름, 나이, 주소, 부서를 출력
+
+<메인>
+package Fri;
+
+class EmployeeMain {
+
+	public static void main(String[] args) {
+		Employee person = new Employee("최현진", 5, "서울", "자바클래스");
+		Regular regular = new Regular("최현진", 5, "서울", "자바클래스");
+		
+		person.printInfo();
+		regular.setWage(500);	
+		// 순서를 맨 밑에 놨더니 메모리에 안 올라서 계속 0원이 나왔던 것.
+		regular.printInfo();
+	}
+
+}
+
+<출력>
+이름: 최현진
+나이: 5세
+주소: 서울
+부서: 자바클래스
+
+이름: 최현진
+나이: 5세
+주소: 서울
+부서: 자바클래스
+정규직
+월급: 500만원
+
+
+<클래스>
+class Employee {
+	private String name;
+	private int age;
+	private String address;
+	private String dep;
+	int wage; // 필드 선언
+
+	public Employee(String name, int age, String address, String dep) {
+		this.name = name;
+		this.age = age;
+		this.address = address;
+		this.dep = dep;
+	}
+	
+	public void printInfo() {
+		System.out.println("이름: " + name);
+		System.out.println("나이: " + age + "세");
+		System.out.println("주소: " + address);
+		System.out.println("부서: " + dep);
+	}
+}
+
+8. 다음을 만족하는 클래스 Regular를 작성하시오.
+
+- 클래스 Regular는 위에서 구현된 클래스 Employee의 하위 클래스
+- 생성자 : 이름, 나이, 주소, 부서를 지정하는 상위 생성자 호출
+- Setter : 월급 정보 필드를 지정
+- 메소드 printInfo() : 인자는 없고 "정규직"이라는 정보와 월급을 출력
+
+<클래스>
+class Regular extends Employee {
+
+	public void setWage(int wage) {
+		this.wage= wage;
+	}
+
+	public Regular(String name, int age, String address, String dep) {
+		super(name, age, address, dep);
+	}
+	
+
+	public void printInfo() {
+		System.out.println();
+		super.printInfo();
+		System.out.println("정규직");
+		System.out.println("월급: " + super.wage + "만원");
+		System.out.println();
+	}
+}
+
