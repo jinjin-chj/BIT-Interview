@@ -1,5 +1,6 @@
 1.Object 클래스에 대하여 설명하시오.
 
+
 2.아래와 같이 출력되는 이유를 설명하시오.
 class A {
 	
@@ -20,13 +21,160 @@ public class TestMain {
 ===============
 이것은 A 클래스 입니다.
 
+
 3. class 이름 및 함수 에서 final 의 의미는?
+- 상수. 변하지 않음을 의미. 따라서 상속 불가.
+- 클래스/ 메소드 명 앞에 fianl (상수) 붙으면 그 클래스는 다른 클래스가 상속 불가.
+ 
 
-
+>> ※ 문제 4~5는 보류. <<
 4.연습문제 7-22 번을 푸시오.
+[7-22] 아래는 도형을 정의한 Shape클래스이다.
+이 클래스를 조상으로 하는 Circle클래스와 Rectangle클래스를 작성하시오. 
+이 때, 생성자도 각 클래스에 맞게 적절히 추가해야 한다.
 
+(1) 클래스명 : Circle
+조상클래스 : Shape
+멤버변수 : double r - 반지름
 
-5.연습문제 7-23 번을 푸시오.
+(2) 클래스명 : Rectangle
+조상클래스 : Shape
+멤버변수 : double width - 폭
+double height - 높이
+
+메서드 :
+1. 메서드명 : isSquare
+기 능 : 정사각형인지 아닌지를 알려준다. 
+반환타입 : boolean
+매개변수 : 없음
+
+<클래스>
+
+package java_12_14;
+
+abstract class Shape {
+	// 클래스들 만들긴 했지만 메인에서 어떻게 써먹는지 모름.
+	Point p;	// 이거 왜 변수 선언했는지 모름.
+
+	Shape() {
+		this(new Point(0, 0));
+	}
+
+	Shape(Point p) {
+		this.p = p;
+	}
+
+	abstract double calcArea(); // 도형의 면적을 계산해서 반환하는 메서드
+
+	Point getPosition() {
+		return p;
+	}
+
+	void setPosition(Point p) {
+		this.p = p;
+	}
+}
+
+class Point {
+	int x;
+	int y;
+
+	Point() {
+		this(0, 0);
+	}
+
+	Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString() {
+		return "[" + x + "," + y + "]";
+	}
+
+}
+
+class Circle extends Shape {
+	double r = 0;
+	final double PI = 3.14;
+	
+	// 솔직히 메인에서 필요한 함수라 만들었는데 무슨 기능인지 모름.
+	Circle(double r) {	
+		this(new Point(0, 0), r);
+	}
+
+	Circle(Point p, double r) {
+		super(p);
+		this.r = r;
+
+	}
+
+	@Override	// 얘는 왜 위에다 쓰면 에러가 나는가.
+	double calcArea() {
+		return r * r * PI;
+	}
+}
+
+class Rectangle extends Shape {
+
+	double width, height = 0;
+
+	Rectangle(double width, double height) {
+		this(new Point(0, 0), width, height);
+	}
+
+	Rectangle(Point p, double width, double height) {
+		super(p);
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	double calcArea() {
+		return width * height;
+	}
+
+	boolean isSquare() {
+		return (width - height == 0 && width * height != 0);
+
+	}
+
+}
+
+5.연습문제 7-23 번을 푸시오. (보류)
+[7-23] 문제7-22에서 정의한 클래스들의 면적을 구하는 메서드를 작성하고 테스트 하시
+오.
+
+1. 메서드명 : sumArea
+기 능 : 주어진 배열에 담긴 도형들의 넓이를 모두 더해서 반환한다.
+반환타입 : double
+매개변수 : Shape[] arr
+
+<메인>
+package java_12_14;
+
+class ShapeMain {
+
+	public static void main(String[] args) {
+
+		Shape[] arr = { new Circle(5.0), new Rectangle(3, 4), new Circle(1) };
+
+		System.out.println("면적의 합 :" + sumArea(arr));
+		
+	}
+
+	private static double sumArea(Shape[] arr) {
+		double sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i].calcArea();
+
+		}
+		return sum;
+	}
+}
+
+<출력>	// 왜 소숫점 둘째까지만 출력되는가?
+면적의 합 :93.64
 
 
 6. interface 와 class 의 차이는?
@@ -60,8 +208,51 @@ This is a report about ...
 ==================================
 
 
-8.@Override 에 대하여 설명하시오.
+<클래스>
+interface Printable2 {
+	public void print(String doc);
+}
 
+class SPrinterDriver2 implements Printable2 {
+	@Override
+	public void print(String doc) {
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+}
+
+class LPrinterDriver2 implements Printable2 {
+	@Override
+	public void print(String doc) {
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+}
+
+<메인>
+class PrintableMain2 {
+	public static void main(String[] args) {
+		// 삼성 엘지 프린터 인터페이스 만들기
+		String myDoc = "This is a report about...";
+
+		// 삼성 프린터로 출력
+		Printable2 prn = new SPrinterDriver2();
+		prn.print(myDoc);
+		System.out.println();
+
+		// LG 프린터로 출력
+		prn = new LPrinterDriver2();
+		prn.print(myDoc);
+	}
+}
+
+8.@Override 에 대하여 설명하시오.
+- 오버라이딩 처럼 보이는 두 클래스를 비교할 때, 
+두 클래스 간 파라미터가 다르면 오버라이딩은 아님.
+오버로딩일 수는 있음.
+근데, @Override 붙여주게 되면, 내가 하고싶은건 오버라이딩인데, 
+이게 오버라이딩이 아니라면 아예 컴파일 에러를 내줘라. 하는거. 
+이거 안 붙이면 오버로딩으로 에러는 안나는듯..
 
 9.interface 에 대하여 설명하시오.
 
@@ -77,6 +268,32 @@ Object obj = new Circle(10);
 System.out.println(obj);
 =================
 출력: 넓이는 100 입니다.
+
+package java_12_14;
+
+class Circle2 {
+	private double rad = 0;
+	private final double PI = 3.14;
+	private double getArea = rad * rad * PI;
+	
+	public Circle2(double rad) {
+		this.rad = rad;
+
+	}
+
+	public String toString() {
+
+		return ("넓이는 " + this.getArea + " 입니다.");
+	}
+}
+
+class CircleMain {
+
+	public static void main(String[] args) {
+		Object obj = new Circle2(10);
+		System.out.println(obj);
+	}
+}
 
 
 13. 아래의 메모리를 그리시오.
