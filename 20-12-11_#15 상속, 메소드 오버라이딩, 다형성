@@ -239,7 +239,8 @@ class Buyer {
 	void add(Product p) { // 얘는 장바구니에 담는 일을 함
 		if (i >= cart.length) {
 			Product[] newCart = new Product[cart.length * 2];
-			System.arraycopy(cart, 0, newCart, 0, cart.length); // 새로운 배열 복사 arraycopy!!
+			System.arraycopy(cart, 0, newCart, 0, cart.length); 
+			// 새로운 배열 복사 arraycopy!!
 			cart = newCart; // 뉴카트로 초기화
 		}
 		cart[i] = p;
@@ -258,7 +259,7 @@ class Buyer {
 		System.out.println();
 		System.out.println("사용한 금액: " + sum);
 
-		System.out.println("남은 금액: " + money); // 남은금액 뭘로 불러오지 ??
+		System.out.println("남은 금액: " + money); 
 	}
 }
 
