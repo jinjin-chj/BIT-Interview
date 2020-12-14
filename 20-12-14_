@@ -277,6 +277,9 @@ class PrintableMain2 {
 9.interface 에 대하여 설명하시오.
 - 인터페이스는 상속 (extends) 대신 implements 키워드를 사용함 (* implements: 구현)
 	인터페이스 폴리몰티즘 적용해서 함수 오버라이딩 할 때 필요한 키워드.
+- 작명법: I + Calculate = ICalculate 
+	 or Calculate + able = Calculatable
+	 
 예:
 class SimplePrinter implements Printable {
 	public void printLine(String str) {
