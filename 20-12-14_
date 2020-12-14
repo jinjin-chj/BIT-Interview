@@ -1,4 +1,12 @@
 1.Object 클래스에 대하여 설명하시오.
+- 사용자가 상속을 했든 안했든, 자바에서 기본적으로 상속받는 클래스.
+즉, 사용자가 상속을 따로 규정하지 않은 경우, 컴파일러가 자동으로 Object class를 상속한다.
+
+cf. 그 외 컴파일러가 자동으로 하는 일..
+1. 생성자 함수 호출 따로 안 하면 디폴트 생성자 자동으로 삽입
+2. Object 클래스 자동 상속
+3. 변수 선언을 따로 안 해도 객체생성(new~)할 때 자동으로 각 방에 0을 일단 넣는다.
+	데이터 타입에 따라 0 또는 String이면 null로 초기화됨.
 
 
 2.아래와 같이 출력되는 이유를 설명하시오.
@@ -14,12 +22,15 @@ class A {
 public class TestMain {
 	public static void main(String[] args) {
 		A a  = new A();
-		System.out.println(a);
-		
+		System.out.println(a);	
 	   }		
 }
 ===============
 이것은 A 클래스 입니다.
+
+<이유>
+
+
 
 
 3. class 이름 및 함수 에서 final 의 의미는?
@@ -178,6 +189,12 @@ class ShapeMain {
 
 
 6. interface 와 class 의 차이는?
+- 인터페이스 안에는 상수, 함수 선언만 올 수 있다. (함수는 추상 메소드만)
+- 즉, 객체 생성은 불가능 (new~).  (Printable p = new Printable ();)
+- but, 구현 이후 자식 클래스에서는 객체 생성 가능함. ('인터페이스형 참조 변수 선언 가능') 
+- 그냥 참조변수 선언은 가능함. (Printable p; 이런거)
+- 인터페이스는 다중 상속 가능.
+
 
 
 7. 다음을 프로그램 하시오.[필수]
@@ -246,21 +263,46 @@ class PrintableMain2 {
 	}
 }
 
+
 8.@Override 에 대하여 설명하시오.
-- 오버라이딩 처럼 보이는 두 클래스를 비교할 때, 
-두 클래스 간 파라미터가 다르면 오버라이딩은 아님.
-오버로딩일 수는 있음.
+- 오버라이딩 처럼 보이는 두 클래스를 비교할 때, 두 클래스 간 하나의 요소라도(파라미터, 클래스명 등) 다르면 오버라이딩. 아님.
 근데, @Override 붙여주게 되면, 내가 하고싶은건 오버라이딩인데, 
-이게 오버라이딩이 아니라면 아예 컴파일 에러를 내줘라. 하는거. 
-이거 안 붙이면 오버로딩으로 에러는 안나는듯..?
+이게 오버라이딩이 아니라면 내가 알아챌 수 있게 아예 컴파일 에러를 내줘라. 하는거. 
+
 
 9.interface 에 대하여 설명하시오.
+- 인터페이스는 상속 (extends) 대신 implements 키워드를 사용함 (* implements: 구현)
+	인터페이스 폴리몰티즘 적용해서 함수 오버라이딩 할 때 필요한 키워드.
+예:
+class SimplePrinter implements Printable {
+	public void printLine(String str) {
+		sysout(str);
+ 	}
+}
 
 
 10.interface에 올수 있는 두가지는?
+- 상수, 함수 선언(추상 메소드)
 
 
 11.abstract 키워드에 대하여 설명하시오.
+- "자손이 구현하라.." 
+- 오버라이딩 하면 부모 클래스에는 구현 내용이 없으니까, 
+	그 함수만 가져다가 자식 클래스에서 구현 내용 입력해서 구현해라.
+- 구현 부분이 없다. = body가 없다. = 메소드의 몸체를 갖지 않는다. -> 인스턴스 생성 불가. 참조변수 선언 가능.
+	{ }; <- 구현 부분이 없는 것
+예:
+interface Printable {
+	void printLine(String str) { };	
+	// abstract public void printLine(String str) { }; // 동일한 내용. 
+
+}
+
+// 원래는 구현부분이 없으려면 abstract 붙여줘야 하는데, 
+// 생략해도 컴파일러가 인터페이스 보고 자동으로 넣어줌
+//인터페이스에서는 public이 반드시 붙어야하는데, 이것도 자동으로 넣어줌.
+즉 => 이것을 추상 메소드라 함. 이건 클래스가 아닌 인터페이스!
+
 
 
 12. 아래의 출력 결과가 아래와 같이 나오도록 프로그래밍 하시오.
@@ -274,16 +316,19 @@ package java_12_14;
 class Circle2 {
 	private double rad = 0;
 	private final double PI = 3.14;
-	private double getArea = rad * rad * PI;
-	
+
 	public Circle2(double rad) {
 		this.rad = rad;
-
 	}
 
-	public String toString() {
+	public double getArea() {
+		return rad * rad * PI;
+	}
 
-		return ("넓이는 " + this.getArea + " 입니다.");
+	@Override
+	public String toString() {
+		return ("넓이는 " + getArea() + " 입니다.");	
+		// 자꾸 함수에 ()를 빼먹고 getArea만 쓰니까 에러나지
 	}
 }
 
@@ -296,7 +341,8 @@ class CircleMain {
 }
 
 
-13. 아래의 메모리를 그리시오.
+
+13. 아래의 메모리를 그리시오. (별도 첨부)
 class MobilePhone {
     protected String number;
     
