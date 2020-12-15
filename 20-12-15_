@@ -1,15 +1,17 @@
 #17-18
 
 1.Maker 인터페이스에 대하여 설명하시오.
-
+-마커 인터페이스: 마킹 되어있는 클래스는 나중에 뒤에서 해당 함수 쓰겠다 ㅇㅇ 하는거/
+즉, 사용할 클래스/ 아닌 클래스 분류시키는 것.
 
 
 2.추상클래스에 대하여 설명하시오.
-
+-  하나 이상의 추상 메소드를 지니는 클래스를 추상 클래스라 함.
+그리고 추상 클래스를 대상으로는 인스턴스 생성이 불가능 .but 참조변수 선언은 가능.
 
 
 3.추상클래스와 인터페이스의 차이는?
-
+내일 마저 하겠습니다`~~~~~ 
 
 
 4.에러와 예외의 차이는?
@@ -17,14 +19,15 @@
 
 
 5.unchecked 와 cheked 예외의 차이는?
-
+- Checked Exception : 예외사항을 처리 체크를 함 (/0, int ;R같은..)
+- Unchecked Exception : 예외사항을 처리 안해줘도 되는 에러(RuntimeException error)
 
 
 6.예외처리 UML를 그리시오.
 
 
 
-7.사칙연산 계산기를 아래의 조건으로 짜시오.  // 했는데 소숫점 이하 출력 안 됨..
+7.사칙연산 계산기를 아래의 조건으로 짜시오.  
 -interface 를 활용할것
 -예외처리 메커니즘을 적용할것.
 
@@ -52,7 +55,7 @@ class Calculator implements ICalculator {
 	@Override
 	public void run() {
 
-		double result = 0.0;
+		int result = 0;
 
 		switch (op) {
 		case '+': {
@@ -68,11 +71,11 @@ class Calculator implements ICalculator {
 			break;
 		}
 		case '/': {
-			result = (double)(x / y);
+			result = (x / y);
 			break;
 		}
 		}
-		System.out.println(x + " " + op + " " + y + " = " + (double)result);
+		System.out.println(x + " " + op + " " + y + " = " + result);
 
 	}
 
@@ -102,9 +105,10 @@ class Calculator implements ICalculator {
 
 }
 
+
 <메인>
 package java_12_15;
-// 소수점 이하 출력이 안 됨.....!!!!!!!!!
+
 import java.util.Scanner;
 
 public class CalculatorMain {
@@ -260,12 +264,12 @@ class Div extends Calc {
 	}
 }
 
-<메인> // 미완!!
+<메인> // 하긴 했는데 객체 생성이랑 함수 호출 안함
 package java_12_15;
 
 import java.util.Scanner;
 
-class CalcMain { // 하긴 했는데 setValue()함수 호출 안 함.
+class CalcMain {	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int result = 0;
@@ -273,36 +277,33 @@ class CalcMain { // 하긴 했는데 setValue()함수 호출 안 함.
 
 		int a = sc.nextInt();
 		int b = sc.nextInt();
-		char op = sc.next().charAt(0);	
+		char op = sc.next().charAt(0);
 
 		switch (op) {
 		case '+': {
-			Add calAdd = new Add(a,b);
-			System.out.println(calAdd.calculate()); 
+			result = a + b;
 			break;
 		}
 		case '-': {
-			Sub calSub = new Sub(a,b);
-			System.out.println(calSub.calculate()); 
+			result = a - b;
 			break;
 		}
 		case '*': {
-			Mul calMul = new Mul(a,b);
-			System.out.println(calMul.calculate()); 
+			result = a * b;
 			break;
 		}
 		case '/': {
-			Div calDiv = new Div(a,b);
-			System.out.println(calDiv.calculate()); 
+			result = a / b;
 			break;
 		}
-
+		
 		}
 		System.out.println(a + " " + op + " " + b + " = " + result);
 
 	}
 
 }
+
 
 10~11. 다음 연습문제 [7-22,23] 번을 푸시오.
 
@@ -337,7 +338,7 @@ double height - 높이
 package java_12_14;
 // 연습 문제 7-22, 23번
 abstract class Shape {	
-	
+
 	Point p;	// 이거 왜 변수 선언했는지 모름.
 
 	Shape() {
@@ -359,7 +360,7 @@ abstract class Shape {
 	}
 }
 
-class Point {  // 이거 왜 있냐고...
+class Point {	// 이거 왜 있냐고...
 	int x;
 	int y;
 
@@ -380,7 +381,6 @@ class Point {  // 이거 왜 있냐고...
 
 class Circle extends Shape {
 	double r = 0;
-	final double PI = 3.14;
 
 	// 밑에 이거 솔직히 메인에서 필요한 함수라 만들었는데 무슨 기능인지 모름.
 	Circle(double r) {
@@ -396,7 +396,7 @@ class Circle extends Shape {
 	@Override	// 얘는 왜 위에다 쓰면 에러가 나는가.
 
 	double calcArea() {
-		return r * r * PI;
+		return r * r * Math.PI;
 	}
 }
 
@@ -459,10 +459,10 @@ class ShapeMain {
 	}
 }
 
-<출력>  // 면적 합 왜 소숫점 둘째자리까지만 나오는지 물어보기.
-면적의 합: 93.64
+<출력>  
+면적의 합: 93.68140899333463
 
-삼각형 넓이: 78.5
+삼각형 넓이: 78.53981633974483
 사각형 넓이: 12.0
 사각형은 정사각형인가? false
 
