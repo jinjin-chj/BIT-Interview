@@ -24,10 +24,141 @@
 
 
 
-7.사칙연산 계산기를 아래의 조건으로 짜시오.
+7.사칙연산 계산기를 아래의 조건으로 짜시오.  // 했는데 소숫점 이하 출력 안 됨..
 -interface 를 활용할것
 -예외처리 메커니즘을 적용할것.
 
+<클래스>
+package java_12_15;
+
+interface ICalculator {
+
+	void Calculator(int x, char op, int y);
+
+	void run();
+}
+
+class Calculator implements ICalculator {
+	private int x, y;
+	private char op;
+
+	@Override
+	public void Calculator(int x, char op, int y) {
+		this.x = x;
+		this.op = op;
+		this.y = y;
+	}
+
+	@Override
+	public void run() {
+
+		double result = 0.0;
+
+		switch (op) {
+		case '+': {
+			result = x + y;
+			break;
+		}
+		case '-': {
+			result = x - y;
+			break;
+		}
+		case '*': {
+			result = x * y;
+			break;
+		}
+		case '/': {
+			result = (double)(x / y);
+			break;
+		}
+		}
+		System.out.println(x + " " + op + " " + y + " = " + (double)result);
+
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public char getOp() {
+		return op;
+	}
+
+	public void setOp(char op) {
+		this.op = op;
+	}
+
+}
+
+<메인>
+package java_12_15;
+// 소수점 이하 출력이 안 됨.....!!!!!!!!!
+import java.util.Scanner;
+
+public class CalMain {
+
+	public static void main(String[] args) {
+		Scanner sc = null;
+		ICalculator cal = new Calculator();
+
+		while (true) {
+			sc = new Scanner(System.in);
+			try {
+				System.out.println("계산기 시작 (숫자 연산자 숫자)");
+
+				System.out.print("입력: ");
+
+				int x = sc.nextInt();
+				char op = sc.next().charAt(0);
+				int y = sc.nextInt();
+
+				System.out.print("계산: ");
+
+				cal.Calculator(x, op, y);
+				cal.run();
+
+			} catch (Exception e) {
+				System.out.println(e.getStackTrace());
+
+			}
+			System.out.println("계속 하시겠습니까? (y/n)");
+
+			char anwser = sc.next().charAt(0);
+			if (anwser == 'Y' || anwser == 'y')
+				continue;
+			else
+				break;
+		}
+		sc.close();
+		System.out.println("프로그램 종료.");
+	}
+
+}
+
+<출력>
+계산기 시작 (숫자 연산자 숫자)
+입력: 5 - 2
+계산: 5 - 2 = 3.0
+>> 계속 하시겠습니까? (y/n)
+y
+계산기 시작 (숫자 연산자 숫자)
+입력: 4 / 0
+계산: [Ljava.lang.StackTraceElement;@7291c18f
+>> 계속 하시겠습니까? (y/n)
+n
+프로그램 종료.
 
 
 8.다음 Stack 인터페이스를 상속받아 실수를 저장하는 StringStack 클래스를 구현하라.(구현할 수 있도록 할것)
@@ -66,7 +197,165 @@ Add, Sub, Mul, Div 중에서 이 연산을 처리할 수 있는 객체를 생성
 
 
 
-10.연습문제 7-22 번을 푸시오.
+10~11. 다음 연습문제 [7-22,23] 번을 푸시오.
+
+[7-22] 아래는 도형을 정의한 Shape클래스이다.
+이 클래스를 조상으로 하는 Circle클래스와 Rectangle클래스를 작성하시오. 
+이 때, 생성자도 각 클래스에 맞게 적절히 추가해야 한다.
+
+(1) 클래스명 : Circle
+조상클래스 : Shape
+멤버변수 : double r - 반지름
+
+(2) 클래스명 : Rectangle
+조상클래스 : Shape
+멤버변수 : double width - 폭
+double height - 높이
+
+메서드 :
+1. 메서드명 : isSquare
+기 능 : 정사각형인지 아닌지를 알려준다. 
+반환타입 : boolean
+매개변수 : 없음
+
+[7-23] 문제7-22에서 정의한 클래스들의 면적을 구하는 메서드를 작성하고 테스트 하시오.
+1. 메서드명 : sumArea
+기 능 : 주어진 배열에 담긴 도형들의 넓이를 모두 더해서 반환한다.
+반환타입 : double
+매개변수 : Shape[] arr
+
+=======================================================================================
+
+<클래스>
+package java_12_14;
+// 연습 문제 7-22, 23번
+abstract class Shape {	
+	
+	Point p;	// 이거 왜 변수 선언했는지 모름.
+
+	Shape() {
+		this(new Point(0, 0));
+	}
+
+	Shape(Point p) {
+		this.p = p;
+	}
+
+	abstract double calcArea(); // 도형의 면적을 계산해서 반환하는 메서드
+
+	Point getPosition() {
+		return p;
+	}
+
+	void setPosition(Point p) {
+		this.p = p;
+	}
+}
+
+class Point {  // 이거 왜 있냐고...
+	int x;
+	int y;
+
+	Point() {
+		this(0, 0);
+	}
+
+	Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString() {
+		return "[" + x + "," + y + "]";
+	}
+
+}
+
+class Circle extends Shape {
+	double r = 0;
+	final double PI = 3.14;
+
+	// 밑에 이거 솔직히 메인에서 필요한 함수라 만들었는데 무슨 기능인지 모름.
+	Circle(double r) {
+		this(new Point(0, 0), r);
+	}
+
+	Circle(Point p, double r) {
+		super(p);
+		this.r = r;
+
+	}
+
+	@Override	// 얘는 왜 위에다 쓰면 에러가 나는가.
+
+	double calcArea() {
+		return r * r * PI;
+	}
+}
+
+class Rectangle extends Shape {
+
+	double width, height = 0;
+
+	Rectangle(double width, double height) {
+		this(new Point(0, 0), width, height);
+	}
+
+	Rectangle(Point p, double width, double height) {
+		super(p);
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	double calcArea() {
+		return width * height;
+	}
+
+	boolean isSquare() {
+		return (width - height == 0 && width * height != 0);
+
+	}
+
+}
 
 
-11.연습문제 7-23 번을 푸시오.
+
+<메인>
+package java_12_14;
+
+class ShapeMain {
+
+	public static void main(String[] args) {
+
+		Shape[] arr = { new Circle(5.0), new Rectangle(3, 4), 
+				new Circle(1) };
+
+		System.out.println("면적의 합: " + sumArea(arr) + '\n');
+
+		Circle cir = new Circle(5.0);
+		System.out.println("삼각형 넓이: " + cir.calcArea());
+
+		Rectangle rec = new Rectangle(3,4);
+		System.out.println("사각형 넓이: " + rec.calcArea());
+		System.out.println("사각형은 정사각형인가? " + rec.isSquare());
+
+	}
+
+	private static double sumArea(Shape[] arr) {
+		double sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i].calcArea();
+
+		}
+		return sum;
+	}
+}
+
+<출력>  // 면적 합 왜 소숫점 둘째자리까지만 나오는지 물어보기.
+면적의 합: 93.64
+
+삼각형 넓이: 78.5
+사각형 넓이: 12.0
+사각형은 정사각형인가? false
+
