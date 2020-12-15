@@ -107,7 +107,7 @@ package java_12_15;
 // 소수점 이하 출력이 안 됨.....!!!!!!!!!
 import java.util.Scanner;
 
-public class CalMain {
+public class CalculatorMain {
 
 	public static void main(String[] args) {
 		Scanner sc = null;
@@ -195,7 +195,114 @@ Add, Sub, Mul, Div 중에서 이 연산을 처리할 수 있는 객체를 생성
 
 두 정수와 연산자를 입력하시오 >> 5 7 +
 
+<클래스>
+package java_12_15;
 
+abstract class Calc {
+	protected int a, b = 0;
+
+	void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	abstract int calculate();
+}
+
+class Add extends Calc {
+	public Add(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	@Override
+	public int calculate() {
+		return a + b;
+	}
+}
+
+class Sub extends Calc {
+	public Sub(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	@Override
+	public int calculate() {
+		return a - b;
+	}
+}
+
+class Mul extends Calc {
+	public Mul(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	@Override
+	public int calculate() {
+		return a * b;
+	}
+}
+
+class Div extends Calc {
+	public Div(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	@Override
+	public int calculate() {
+		if (b == 0) {
+			System.out.println("0으로 나눌 수 없습니다.");
+		}
+		return a / b;
+	}
+}
+
+<메인> // 미완!!
+package java_12_15;
+
+import java.util.Scanner;
+
+class CalcMain { // 하긴 했는데 setValue()함수 호출 안 함.
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int result = 0;
+		System.out.print("두 정수와 연산자를 입력하시오 >> ");
+
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		char op = sc.next().charAt(0);	
+
+		switch (op) {
+		case '+': {
+			Add calAdd = new Add(a,b);
+			System.out.println(calAdd.calculate()); 
+			break;
+		}
+		case '-': {
+			Sub calSub = new Sub(a,b);
+			System.out.println(calSub.calculate()); 
+			break;
+		}
+		case '*': {
+			Mul calMul = new Mul(a,b);
+			System.out.println(calMul.calculate()); 
+			break;
+		}
+		case '/': {
+			Div calDiv = new Div(a,b);
+			System.out.println(calDiv.calculate()); 
+			break;
+		}
+
+		}
+		System.out.println(a + " " + op + " " + b + " = " + result);
+
+	}
+
+}
 
 10~11. 다음 연습문제 [7-22,23] 번을 푸시오.
 
