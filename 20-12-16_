@@ -38,14 +38,55 @@ for(Fruit f : fAry)
 f.print();
 
 -  결과
-
 나는 포도이다.
 나는 사과이다.
 나는 배이다.
 
 
+<클래스 + 메인>	
+// 자식 클래스에서 스트링 변수 선언도 해봤는데 굳이 안해도 될듯.. 바로 구현에 과일 이름 넣음.
+package java_12_16;
 
-6. 다음 조건을 만족하도록 클래스 Person과 Student를 작성하시오.
+abstract class Fruit {
+	protected abstract void print();
+}
+
+class Grape extends Fruit {
+	@Override
+	protected void print() {
+		System.out.println("나는 포도이다.");
+	}
+}
+
+class Apple extends Fruit {
+	@Override
+	protected void print() {
+		System.out.println("나는 사과이다.");
+	}
+}
+
+class Pear extends Fruit {
+	@Override
+	protected void print() {
+		System.out.println("나는 배이다.");
+	}
+}
+
+public class FruitMain {
+
+	public static void main(String[] args) {
+		Fruit fAry[] = { new Grape(), new Apple(), new Pear() };
+
+		for (Fruit f : fAry)
+
+			f.print();
+
+	}
+}
+
+
+
+6. 다음 조건을 만족하도록 클래스 Person과 Student를 작성하시오. // 결괏값 소숫점이 또 이상함....
 - 클래스 Person
 * 필드 : 이름, 나이, 주소 선언
 
@@ -82,6 +123,111 @@ f.print();
 
 8학기 총 평균 평점은 4.0375점입니다.
 
+
+<클래스>
+package java_12_16;
+
+import java.util.Scanner;
+
+public class Person {
+	String name;
+	int age;
+	String address;
+
+	public Person(String name, int age, String address) {
+		this.name = name;
+		this.age = age;
+		this.address = address;
+	}
+}
+
+class Student extends Person {
+	String univ;
+	String major;
+	int id;
+	double[] score; // 학번 길까봐 더블로 잡음
+
+	public Student(String name, int age, String address, String univ, String major, int id) {
+
+		super(name, age, address);
+		this.univ = univ;
+		this.major = major;
+		this.id = id;
+		score = new double[8]; // 8개 학기
+	}
+
+	public double average() {
+
+		double sum = 0;
+		for (double i = 0; i < score.length; i++) {
+			sum += i;
+		}
+		return sum / score.length;
+	}
+
+	public void print() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("이름 : " + name);
+		System.out.println("나이 : " + age);
+		System.out.println();
+		System.out.println("주소 : " + address);
+		System.out.println("학교 : " + univ);
+		System.out.println("학과 : " + major);
+		System.out.println("학번 : " + id);
+
+		System.out.println('\n' + "----------------------------------------" + '\n');
+		System.out.println("8학기 학점을 순서대로 입력하세요.");
+		System.out.println();
+		for (int i = 0; i < score.length; i++) {
+			// 왜 double아니고 i를 int로 바꿔야 하는지? 안바꾸면 밑에서 에러남.
+			System.out.print((i + 1) + "학기 학점 → ");
+			score[i] = sc.nextDouble();
+		}
+		System.out.println('\n' + "----------------------------------------" + '\n');
+		System.out.println("8학기 총 평균 평점은 "+ average() + "점 입니다.");
+		
+		sc.close();
+	} 
+}
+
+
+<메인>
+package java_12_16;
+
+public class PersonMain {
+
+	public static void main(String[] args) {
+		Student student = new Student("김다정", 20, "서울시 관악구", "동양서울대학교", "전산정보학과", 20132222);
+		student.print();
+	
+	}
+}
+
+<결과>	// 결괏값 소숫점이 또 이상함....
+이름 : 김다정
+나이 : 20
+
+주소 : 서울시 관악구
+학교 : 동양서울대학교
+학과 : 전산정보학과
+학번 : 20132222
+
+----------------------------------------
+
+8학기 학점을 순서대로 입력하세요.
+
+1학기 학점 → 3.37
+2학기 학점 → 3.89
+3학기 학점 → 4.35
+4학기 학점 → 3.76
+5학기 학점 → 3.89
+6학기 학점 → 4.26
+7학기 학점 → 4.89
+8학기 학점 → 3.89
+
+----------------------------------------
+
+8학기 총 평균 평점은 3.5점 입니다.
 
 
 [7~8] 다음은 도형의 구성을 묘사하는 인터페이스이다.
