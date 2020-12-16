@@ -210,7 +210,7 @@ Add, Sub, Mul, Div 중에서 이 연산을 처리할 수 있는 객체를 생성
 
 두 정수와 연산자를 입력하시오 >> 5 7 +
 
-<클래스>
+<클래스 ver.1>
 package java_12_15;
 
 abstract class Calc {
@@ -275,7 +275,7 @@ class Div extends Calc {
 	}
 }
 
-<메인> // 하긴 했는데 객체 생성이랑 함수 호출 안함
+<메인 ver.1> // 하긴 했는데 객체 생성이랑 함수 호출 안함
 package java_12_15;
 
 import java.util.Scanner;
@@ -311,6 +311,129 @@ class CalcMain {
 		}
 		System.out.println(a + " " + op + " " + b + " = " + result);
 
+	}
+
+}
+----------------------------------------------------------------
+<클래스 수정 ver.2>
+package java_12_15; //12-16 수정함 _ 쌤버전
+
+abstract class Calc {
+	protected int a, b = 0;
+
+	public void setValue(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	abstract int calculate();
+}
+
+class Add extends Calc {
+
+	@Override
+	public int calculate() {
+		return a + b;
+	}
+}
+
+class Sub extends Calc {
+
+	@Override
+	public int calculate() {
+		return a - b;
+	}
+}
+
+class Mul extends Calc {
+
+	@Override
+	public int calculate() {
+		return a * b;
+	}
+}
+
+class Div extends Calc {
+
+	@Override
+	public int calculate() {
+		if (b == 0) {
+			System.out.println("0으로 나눌 수 없습니다.");
+		}
+		return a / b;
+	}
+}
+
+<메인 수정 ver.2> // 객체 생성, 메소드 호출 적용, 에러 발생해도 진행 여부 결정 가능하도록 수정.
+
+class CalcMain {
+	public static void main(String[] args) {
+		Scanner sc = null;
+
+		while (true) {
+			System.out.print("두 정수와 연산자를 입력하시오 >> ");
+			sc = new Scanner(System.in);
+
+			try {
+				int a = sc.nextInt();
+				int b = sc.nextInt();
+				char op = sc.next().charAt(0);
+
+				Calc cal = null;
+
+				switch (op) {
+				case '+':
+					cal = new Add();
+
+					break;
+
+				case '-':
+					cal = new Sub();
+					break;
+
+				case '*':
+					cal = new Mul();
+					break;
+
+				case '/':
+					cal = new Div();
+					break;
+
+				default:
+					System.out.println("잘못된 연산입니다.");
+
+				}
+				cal.setValue(a, b);
+				System.out.println(a + " " + op + " " + b + " = " + cal.calculate());
+
+			} catch (Exception e) {
+				System.out.println("에러가 발생했습니다.");
+
+				System.out.print("계속 하시겠습니까? (y/n) >> ");
+
+				sc = new Scanner(System.in);	// 이 부분이 노란줄이 뜨긴 함.
+
+				char anwser = sc.next().charAt(0);
+
+				if (anwser == 'Y' || anwser == 'y')
+					continue;
+				else
+					break;
+
+			}
+
+			System.out.print("계속 하시겠습니까? (y/n) >> ");
+			char anwser = sc.next().charAt(0);
+
+			if (anwser == 'Y' || anwser == 'y')
+				continue;
+			else
+				break;
+
+		}
+
+		sc.close();
+		System.out.println("프로그램 종료.");
 	}
 
 }
@@ -477,3 +600,12 @@ class ShapeMain {
 사각형 넓이: 12.0
 사각형은 정사각형인가? false
 
+===========================================================================
+
+오늘의 메모
+
+★ 계산기 프로그램 짤 때, 
+'/' 이거는 몫만 나오기 때문에 소숫점 이하 안 나오는게 당연해.
+
+★ 원의 넓이 구할 때, 상수로 PI=3.14; 선언하게 되면 
+소숫점 둘째자리 까지만 나오는게 당연해. Math.PI 사용하자.
