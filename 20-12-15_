@@ -192,7 +192,104 @@ interface Stack {
 문자열 입력 >> smile
 문자열 입력 >> happy
 스택이 꽉 차서 푸시 불가!
-문자열 입력 >> 그만
+문자열 입력 >> 그만		// 이게 출력 안 됨.
+스택에 저장된 모든 문자열 팝 : smile sunny hello 
+
+<클래스 + 메인>
+
+package java_12_16;
+
+import java.util.Scanner;
+
+interface Stack {
+	int length();
+
+	// int capacity(); // 뭐에 쓰는겨
+
+	String pop();
+
+	boolean push(String val);
+}
+
+class StringStack implements Stack {
+	private String stack[];
+	private int top;
+
+	StringStack(int length) {
+		stack = new String[length];
+		top = -1; // index 번호니까!!
+	}
+
+	@Override
+	public int length() {
+
+		return stack.length;
+	}
+
+	/*
+	 * @Override public int capacity() {
+	 * 
+	 * return stack.length; }
+	 */
+	
+	@Override
+	public String pop() {
+		if (top == -1) // 한 개도 없다는 뜻
+			return "스택이 비어있습니다.";
+
+		return stack[top--]; // 이렇게 리턴값을 두개 쓴다는건, 아래 리턴은 else일때 리턴값인건가??
+
+	}
+
+	@Override
+	public boolean push(String val) {
+		if (top == stack.length-1) // 꽉 찼다는 뜻(인덱스라서 -1해줌)
+			return false;
+
+		stack[++top] = val;
+		return true;
+	}
+
+}
+
+public class StackApp {
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		System.out.print("총 스택 저장 공간의 크기 입력 >> ");
+		int num = sc.nextInt();
+		StringStack stack = new StringStack(num);
+
+		while (true) {
+			System.out.print("문자열 입력 >> ");
+			String word = sc.next();
+
+			if (word.equals("그만"))
+				break;
+
+			if (!stack.push(word)) {
+				System.out.println("스택이 꽉 차서 푸시 불가!");
+				break;
+			}
+		}
+		System.out.print("스택에 저장된 모든 문자열 팝 : ");
+		int len = stack.length();
+		for (int i = 0; i < len; i++) {
+			String s = stack.pop();
+			System.out.print(s + " ");
+		}
+		sc.close();
+	}
+
+}
+
+<결과>
+총 스택 저장 공간의 크기 입력 >> 3
+문자열 입력 >> hello
+문자열 입력 >> sunny
+문자열 입력 >> smile
+문자열 입력 >> happy
+스택이 꽉 차서 푸시 불가!
 스택에 저장된 모든 문자열 팝 : smile sunny hello 
 
 
@@ -437,6 +534,15 @@ class CalcMain {
 	}
 
 }
+
+<결과>
+두 정수와 연산자를 입력하시오 >> r r r
+에러가 발생했습니다.
+계속 하시겠습니까? (y/n) >> y
+두 정수와 연산자를 입력하시오 >> 4 2 /
+4 / 2 = 2
+계속 하시겠습니까? (y/n) >> n
+프로그램 종료.
 
 
 10~11. 다음 연습문제 [7-22,23] 번을 푸시오.
