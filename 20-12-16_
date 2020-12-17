@@ -189,8 +189,8 @@ class Student extends Person {
 	public double average() {
 
 		double sum = 0;
-		for (double i = 0; i < score.length; i++) {
-			sum += i;
+		for (int i = 0; i < score.length; i++) {
+			sum += score[i];
 		}
 		return sum / score.length;
 	}
@@ -257,7 +257,7 @@ public class PersonMain {
 
 ----------------------------------------
 
-8학기 총 평균 평점은 3.5점 입니다.
+8학기 총 평균 평점은 4.0375점 입니다.
 
 
 [7~8] 다음은 도형의 구성을 묘사하는 인터페이스이다.	// 타원 넓이 소숫점이 다름..
