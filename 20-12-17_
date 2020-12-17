@@ -1,16 +1,30 @@
 # 19~20
 
-1. String 클래스 에서 문자열 비교시 equal을 쓰는 이유는?
+1. String 클래스에서 문자열 비교시 equal을 쓰는 이유는?
+-Object class(부모)에 있는 String을 자식 클래스에서 equals메소드로 오버라이딩해서 
+스트링 내에있는 글자값만 비교. (주소값 비교 아님)
+-> 스트링 클래스는 두 인스턴스의 내용을 비교하는 형태로 equals메소드를 오버라이딩 하고있음.
 
 
-2. shall copy, deep copy 의 차이는?
+2. shallaw copy, deep copy 의 차이는?
+
+■ Shallaw Copy 
+- 원본의 참조값(주소)를 복사해서 결국 같은 번지수를 가리킨다. 
+- 동일한 객체를 참조한다.
+- 따라서 원본 수정 시 복사본도 수정됨.
+
+■ Deep Copy 
+- 원본의 객체 자체를 메모리에 복사해서 새로운 주소를 가진 다른 번지수를 가리킴. 
+- 생긴 것만 같은 아예 다른 객체를 참조한다.
+- 원본 수정에 영향을 받지 않는다.
 
 
 3. 금일 배운 Rectangle의 shall copy 와 deep copy 일 때의 그림을 그리시오. (중요)
+첨부!
 
 
 4. 다음 main()이 실행되면 아래 예시와 같이 출력되도록 MyPoint 클래스를 작성하라.
-
+<메인>
 public static void main(String [] args) {
 	MyPoint p = new MyPoint(3, 50);
 	MyPoint q = new MyPoint(4, 50);
@@ -19,8 +33,31 @@ public static void main(String [] args) {
 	else System.out.println("다른 점");			
 }
 
+<결과>
 Point(3,50)
 다른점
+
+<클래스>
+package java_12_17;
+
+class MyPoint {
+
+	int num1, num2;
+
+	public MyPoint(int num1, int num2) {
+		this.num1 = num1;
+		this.num2 = num2;
+	}
+
+	@Override
+	public String toString() {
+		return ("Point(" + num1 + "," + num2 + ")");
+	}
+}
+
+-------------------------------------------------------
+* java_12_17.MyPoint@28a418fc 
+<<- 이렇게 주소값 나오는 건 클래스에서 toString 메소드 오버라이딩 안 해줘서 주소값만 나오는겨.
 
 
 
@@ -43,6 +80,53 @@ public static void main(String[] args) {
 원 b : Circle(2,3)반지름30
 같은 원
 
+<클래스>
+package java_12_17;
+
+public class Circle {
+	
+	private int x, y, rad;
+
+	public Circle(int x, int y, int rad) {
+		this.x = x;
+		this.y = y;
+		this.rad = rad;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this.x == ((Circle) obj).x && this.y == ((Circle) obj).y)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public String toString() {
+		return ("Circle(" + x + "," + y + ")" + "반지름" + rad);
+	}
+
+	public int getX() {	//여기부턴 그냥 게터세터
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public int getRad() {
+		return rad;
+	}
+	public void setRad(int rad) {
+		this.rad = rad;
+	}
+}
+
+
 
 
 6. 문자열을 입력받아 한 글자씩 회전시켜 모두 출력하는 프로그램을 작성하라.
@@ -63,11 +147,44 @@ I Love you
 
 [Hint] Scanner.nextLine()을 이용하면 빈칸을 포함하여 한 번에 한 줄을 읽을 수 있다.
 
+<메인>
+package java_12_17;
+
+import java.util.Scanner;
+
+public class ILoveYou {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("문자열을 입력하세요. 빈칸이 있어도 되고 영어 한글 모두 됩니다.");
+		System.out.print("입력 >> ");
+		String input = sc.nextLine();
+
+		for (int i = 0; i < input.length(); i++) {
+			System.out.print(input.substring(i));
+			System.out.println(input.substring(0, i));
+		}
+		sc.close();
+
+	}
+
+}
+
+
 
 7. 래퍼 클래스란 무엇인가?
+- Wrapper Class
+- 기본 자료형 8개의 값을 인스턴스로 감싸는 목적의 클래스
+- 즉, 기본형 8개를 클래스로 표현한 것
+
 
 
 8. auto unboxing 이란?
+- 래퍼 클래스의 두 가지 기능 중 하나인 Unboxing 이 자동으로 진행 되는 것.
+- 기본 자료형 값이 와야 할 위치에 인스턴스가 오면 자동으로 언박싱 진행된다.
+
 
 
 ★9. 다음 조건을 만족하는 클래스 Person을 구현하여 테스트하는 프로그램을 작성하시오.(필수)
