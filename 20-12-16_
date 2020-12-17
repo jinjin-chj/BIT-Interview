@@ -1,12 +1,19 @@
 #18~19 // 오늘 집중을 잘 못해서 개념 문제는 잘 모르겠어요. 플밍은 다 함..
 
-1.throws 에 대하여 설명하시오.
+1. throws 에 대하여 설명하시오.
 - 예외 처리의 또 다른 방법
 - 함수 + throws+ Exception { } // 하면 받은 함수가 예외 처리 함..
 - JVM이 처리한다. 
 
+(추가)
+만약 함수에서 예외 상황의 문제가 생기게 되면 throws Exception을 자기자신을 호출한 함수한테 던진다. 
+(예외 처리를 떠넘긴다.) 
+→ 계속 호출 한 곳으로 던져서 결국 try catch의  catch에서 Exception 에서 받게 된다. 
+→ try catch가 없는 경우 메인 메소드까지 넘어가서 메인 메소드가 최종적으로 JVM으로 넘기는 것도 가능하다. 
+(하지만 그 전에 try catch로 예외 처리를 직접 하는 것이 좋다.)
 
-2.아래가 컴파일 에러가 나는 이유에 대하여 설명하시오.
+
+2. 아래가 컴파일 에러가 나는 이유에 대하여 설명하시오.
 try {
         	int num = 6 / 0;
         	
@@ -17,20 +24,36 @@ try {
 			e.printStackTrace();
 		}
     
-<이유>
-
+<이유> by 혜선님
+Exception이 InputMismatchException보다 상위 클래스에 위치하고 있으므로 모든 예외 상황을 체크할 수 있다. 
+그래서 여기에서 모든 예외가 처리 되기 때문에 세부 체크를 하는  
+InputMismatchException이나 ArithmeticException 등이 그 아래 catch로 온다면 
+사실상 그 문장을 통과할 일이 없기 때문에 불필요한 코드임을 알려주기 위해 에러가 난다.
     
-3.try with resource 에 대하여 설명하시오. 
-※ 모르겠어요
-- try()안에 객체 직접 생성하고, writer.close(); 따로 안 적음.
-try(~~~~) {
-}
-catch() {
-}
+   
+3. try with resource 에 대하여 설명하시오. 
+- try()안에 객체 생성(new) 직접 넣고, .close(); finally 클로즈 따로 안 해도 됨.
+- 즉, try문을 빠져나갈 때, close를 자동생성 함(근데 안보임).
 
 
-7.equals 함수에 대하여 설명하시오.
-※ 모르겠어요
+
+4. equals 함수에 대하여 설명하시오.
+예:
+public boolean equals(Object obj) {
+        return (this == obj);
+}
+- this와 obj 를 비교해 서로 같은 객체를 가리키고 있는지 참조값(주소)을 비교함.
+- 결과는 true or false로 리턴.
+- Object 클래스의 equals 함수를 사용하면 객체를 가리키는 주소값을 비교하는 것!!
+- 하위 클래스에서 함수 오버라이딩 하면; 객체 자체의 값(내용)을 비교함.
+	-> @Override
+	public boolean equals(Object obj) {
+		if(this.num== ((INum)obj).num)  //부모 → 자식으로 하려면 형변환 해야함
+			return true;
+		else
+			return false;
+	}
+
 
 
 5. 과일, 사과, 배, 포도를 표현한 클래스를 만들고 이들 간의 관계를 고려하여 
@@ -86,7 +109,6 @@ public class FruitMain {
 		Fruit fAry[] = { new Grape(), new Apple(), new Pear() };
 
 		for (Fruit f : fAry)
-
 			f.print();
 
 	}
@@ -153,7 +175,7 @@ class Student extends Person {
 	String univ;
 	String major;
 	int id;
-	double[] score; // 학번 길까봐 더블로 잡음
+	double[] score; 
 
 	public Student(String name, int age, String address, String univ, String major, int id) {
 
@@ -281,7 +303,7 @@ public static void main(String[] args) {
 면적은 314.0
 면적은 1884.0000000000002
 면적은 400.0
-
+==================================================================================
 
 <클래스>
 package java_12_16;
