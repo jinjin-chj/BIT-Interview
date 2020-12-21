@@ -1,7 +1,9 @@
 # 21~ 23
 
 1.제네릭 클래스의 타입 인자 제한하는 방법과 효과는?
-:
+: class Box<T extends Number> {...}
+일 때, T는 타입인자로 Number 또는 넘버를 상속하는 클래스만 올 수 있음.
+ Number? Integer or Double 같이 숫자! 스트링 이런거 못 온다.
 
 인스턴스 생성 시 타입 인자로 Number 또는 이를 상속하는 클래스만 올 수 있음
 ex) class Box<T extends Number> {...} 
@@ -29,7 +31,56 @@ class DDBoxDemo {
 Apple & 25
 Orange & 33
 
-:
+<풀이>
+package java_12_21;
+
+class DBox1<L, R> {
+	private L left;
+	private R right;
+
+	public void set(L o, R r) {
+		left = o;
+		right = r;
+	}
+
+	@Override
+	public String toString() {
+		return left + " & " + right;
+	}
+}
+
+class DDBox<L, R> {
+	private L left;
+	private R right;
+
+	public void set(L o, R r) {
+		left = o;
+		right = r;
+	}
+	@Override
+	public String toString() {
+		return left + "\n" + right;	// 여기서 left, right는 DBox
+	}
+}
+
+class DDBoxDemo {
+
+	public static void main(String[] args) {
+
+		DBox1<String, Integer> box1 = new DBox1<>();
+		box1.set("Apple", 25);
+
+		DBox1<String, Integer> box2 = new DBox1<>();
+		box2.set("Orange", 33);
+
+		DDBox<DBox1<String, Integer>, DBox1<String, Integer>> ddbox = new DDBox<>();
+		ddbox.set(box1, box2);
+
+		System.out.println(ddbox);
+	}
+
+}
+
 
 3.아래와 같이 출력값이 나오도록 프로그래밍 하시오.
     public static void main(String[] args) {
@@ -95,9 +146,17 @@ public class BoxHWMain {
 
 
 5.와일드 카드와 상한 제한, 하한 제한에 대하여 설명하시오.
-- 와일드 카드:
-- 상한 제한된 와일드 카드:
-- 하한 제한된 와일드 카드:
+- 와일드 카드
+: 제네릭 클래스의 상속*은 같은 매개변수 타입(Integer, String,,,)끼리만 상속이 가능했다. 
+그런 단점을 보완하기 위해 어느 매개변수 타입이든 상속이 가능하게끔 한 것이 와일드 카드. 
+어떤 상속관계가 있는지 명확히 보이지 않는단 단점이 있음.
+따라서, 상한과 하한 제한을 두어 어떠한 상속 관계에서 오는지 명확하게 보여줌.
+- 상한 제한된 와일드 카드: <? extends T> // T와 자손들만 가능
+- 하한 제한된 와일드 카드: <? super T> // T와 조상들만 가능
+
+ 
+* 제네릭 클래스도 상속이 가능한데, 상속 시 <>안에 매개변수 타입이 같아야 함.
+Integer 면 Integer, String 이면 String.
 
 
 6.아래가 에러가 나는 이유를 설명하시오.
@@ -121,7 +180,8 @@ public static void inBox(Box<? super Toy> box, Toy n) {
    public static void outBox(Box<? extends Toy> box) {...}
    public static void outBox(Box<? extends Robot> box) {...}
 
-:
+: 메소드 오버로딩이 되려면 메소드 안에 데이터 멤버 또는 타입을 달리해야 한다.
+but, 컴파일 과정에서 <> 안에 있는 건 다 날아가기 때문에 같은 모양을 띤다. 
 
 
 8.아래의 결과가 나오도록 프로그래밍을 완성하시오.
@@ -149,7 +209,7 @@ Poly
 <풀이>
 package java_12_21;
 
- class Box5<T> {
+class Box5<T> {
 
 	private T ob;
 
@@ -160,16 +220,15 @@ package java_12_21;
 	public void set(T ob) {
 		this.ob = ob;
 	}
+
 }
 
-public class BoxMolyPoly {
+class BoxMolyPoly {
 
-	private static <T> boolean compBox(Box5<T> box1, int i) {
-		return false;
-	}
+	private static <T> boolean compBox(Box5<T> box, T o) {
+		T check = box.get();
 
-	private static <T> boolean compBox(Box5<T> box2, String string) {
-		return false;
+		return check.equals(o);
 	}
 
 	public static void main(String[] args) {
@@ -193,11 +252,38 @@ public class BoxMolyPoly {
 }
 
 
+
 <결과>
 24
 Poly
 
 
-9.콜렉션 프레임워크란?
-:
+9.콜렉션 프레임워크란? 셋리큐맵,,,-_-
+: 자료구조 및 알고리즘을 구현해 놓은 일종의 라이브러리(.class들의 모임). 제네릭 기반으로 구현되어 있음.
+    [컬렉션]
+	↑
+[셋, 리스트, 큐] /// [맵]
+
+■ List interface 리스트 인터페이스
+- ArratList<E>
+- LinkedList<E>
+	□ 특징
+	1. 인스턴스의 저장 순서 유지,
+	2. 동일 인스턴스의 중복 저장을 허용함.
+	3. 배열과의 차이점: 배열은 연속된 공간이나, LinkedList는 연속된 공간이 아님.
+
+
+
+
+* Array.sort?
+public int compareTo(Object obj) {
+	return this.getArea() - ((Rectangle)obj).getArea(); 일 때,
+			5 - 3 = 2 << 오름차순일 경우 자리바꿈 필요.
+즉, 뺄셈의 값이,
+- '양수'의 의미: 자리 바꿈이 일어남 - 오름차순 일 경우.
+- '음수'의 의미: 자리 바꿈 필요 없음 
+- '0' : 값이 동일함.
+(* 오름차순 : 뒤로 갈수록 올라간다!!! 123456789..)
+
+
 
