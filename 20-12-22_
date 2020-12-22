@@ -232,7 +232,7 @@ class Person {
 
 	@Override
 	public String toString() {
-		return String.valueOf(name);
+		return name + "(" + age + "세)";
 	}
 
 	@Override
