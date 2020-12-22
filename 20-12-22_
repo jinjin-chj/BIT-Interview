@@ -10,9 +10,61 @@
 
 가장 큰 수는 88
 
+<풀이>
+package java_12_22;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class InputMaxNumber {
+
+	public static void main(String[] args) {
+		int num = 0;
+		ArrayList<Integer> list = new ArrayList<>(); // 컬렉션 인스턴스 생성
+		Scanner sc = new Scanner(System.in);
+                // 스캐너 while문 안에 넣게 되면 다른 결과 나옴
+		System.out.print("정수(-1이 입력될 때까지)>> ");
+		
+		while (true) {
+			// 숫자 입력받고 저장
+			num = sc.nextInt();
+			
+			if (num == -1) 
+				break;
+			
+			list.add(num); // 사용자가 입력하는 숫자들 저장됨.
+		}
+
+			int maxNum = list.get(0); // 그 중 가장 큰 수
+			for (int i = 1; i < list.size(); i++) {
+				if (maxNum < list.get(i)) 
+					maxNum = list.get(i);	
+			}
+			
+			System.out.println("가장 큰 수는 " + maxNum);
+		
+	}
+}
+
 
 
 3.로또 프로그램을 작성하시오.(Set 으로)
+package java_12_22;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class LottoHashSet {
+
+	public static void main(String[] args) {
+		Set<Integer> set = new HashSet<>();
+
+		while (set.size() < 6) {
+			set.add((int)(Math.random() * 45) + 1);
+		}
+		System.out.println(set);
+	}
+}
 
 
 
@@ -58,7 +110,7 @@ LA 34 -118
 
 
 
-6.Scanner 클래스를 사용하여 6개 학점('A', 'B', 'C', 'D', 'F')을 문자로 입력받아ArrayList에 저장하고, 
+6.Scanner 클래스를 사용하여 6개 학점('A','B','C','D','F')을 문자로 입력받아 ArrayList에 저장하고, 
 ArrayList를 검색하여 학점을 점수(A=4.0, B=3.0, C=2.0, D=1.0, F=0)로 변환하여 
 평균을 출력하는 프로그램을 작성하라.
 
@@ -66,6 +118,53 @@ ArrayList를 검색하여 학점을 점수(A=4.0, B=3.0, C=2.0, D=1.0, F=0)로 �
 
 2.3333333333333335
 
+<풀이>
+package java_12_22;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class GradeArrayList {
+
+	public static void main(String[] args) {
+
+		ArrayList<Character> list = new ArrayList<>();
+		Scanner sc = new Scanner(System.in);
+		System.out.print("6개의 학점을 빈 칸으로 분리 입력(A/B/C/D/F) >> ");
+
+		for (int i = 0; i < 6; i++) {   // 몇 개를 입력하든 앞 6개만 받겠다.
+			char ch = sc.next().charAt(0);
+			list.add(ch);   // 사용자가 입력한 문자 6개 담음.
+		}
+
+		double sum = 0;
+
+		for (int i = 0; i < list.size(); i++) {
+			char ch = list.get(i);
+
+			switch (ch) {
+			case 'A':
+				sum += 4.0;
+				break;
+			case 'B':
+				sum += 3.0;
+				break;
+			case 'C':
+				sum += 2.0;
+				break;
+			case 'D':
+				sum += 1.0;
+				break;
+			case 'F':
+				sum += 0;
+				break;
+			}
+		}
+
+		double avg = sum / list.size();
+		System.out.println(avg);
+	}
+}
 
 
 7.출력이 아래와 같이 나오도록 하시오(필수)
@@ -102,4 +201,52 @@ ArrayList를 검색하여 학점을 점수(A=4.0, B=3.0, C=2.0, D=1.0, F=0)로 �
 ============
 저장된 데이터 수: 2
 [LEE(10세), PARK(35세)]
+
+<풀이>
+package java_12_22;
+
+import java.util.HashSet;
+
+class HashSetPerson {
+
+	public static void main(String[] args) {
+		HashSet<Person> hSet = new HashSet<Person>();
+		hSet.add(new Person("LEE", 10));
+		hSet.add(new Person("LEE", 10));
+		hSet.add(new Person("PARK", 35));
+		hSet.add(new Person("PARK", 35));
+
+		System.out.println("저장된 데이터 수: " + hSet.size());
+		System.out.println(hSet);
+	}
+}
+
+class Person {
+	private String name;
+	private int age;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(name);
+	}
+
+	@Override
+	public int hashCode() {
+		return age;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (age == ((Person) obj).age)
+			return true;
+		else
+			return false;
+	}
+
+}
 
