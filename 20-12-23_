@@ -194,11 +194,8 @@ class StudentArrayList {
 		for (int i = 0; i < student.length; i++) {
 			System.out.print(">> ");
 			String name = sc.next();
-			//System.out.print(", ");
 			String dep = sc.next();
-			//System.out.print(", ");
 			String idNum = sc.next();
-			//System.out.print(", ");
 			String avg = sc.next();
 
 			student[i] = new Student(name, dep, idNum, avg);
