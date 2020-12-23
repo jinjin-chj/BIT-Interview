@@ -176,7 +176,7 @@ class Num {
 
 	@Override
 	public int hashCode() {
-		return num%2; 	// 왜 %2하는지 모를일..
+		return num; 
 	}
 
 	@Override
@@ -269,12 +269,12 @@ class Person {
 
 	@Override
 	public int hashCode() {
-		return age%3;	// 왜인지는 모르겠는데 그냥 age로 하면 출력값 순서가 다름..
+		return age;	
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (age == ((Person) obj).age)
+		if ((this.age == ((Person) obj).age)&&(this.name == ((Person) obj).name))
 			return true;
 		else
 			return false;
