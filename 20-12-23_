@@ -264,6 +264,58 @@ LA 34 -118
 
 도시 이름 >> 그만
 
+<풀이> // 하는 중!~~~
+package java_12_23;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+/*4. 도시 이름, 위도, 경도 정보를 가진 Location 클래스를 작성하고, 
+도시 이름을 '키'로 하는 HashMap<String, Location> 컬렉션을 만들고, 
+사용자로부터 입력 받아 4개의 도시를 저장하라. 
+그리고 도시 이름으로 검색하는 프로그램을 작성하라.
+
+도시, 경도, 위도를 입력하세요.
+ */
+class Location {
+	String city, lat, lng;
+
+	Location(String city, String lat, String lng) {
+		this.city = city;
+		this.lat = lat;
+		this.lng = lng;
+	}
+
+	void Print() {
+		System.out.println(city + '\t' + lat + '\t' + lng);
+	}
+
+}
+
+class LocationHashMap {
+	public static void main(String[] args) {
+		String city, lat, lng; // 원래는 이거 없어도 돌아가야돼
+		HashMap<String, Location> map = new HashMap<>();
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("도시, 경도, 위도를 입력하세요.");
+
+		for (int i = 0; i < 4; i++) {
+			System.out.print(">> ");
+			city = sc.next();
+			lat = sc.next();
+			lng = sc.next();
+
+			Location loc = new Location(city, lat, lng);
+			map.put(city, loc);
+		}
+		for (int i = 0; i < map.size(); i++) {
+			System.out.print(map.get(i));
+		}
+
+	}
+
+}
 
 
 5. 이름과 학점(4.5만점)을 5개 입력받아 해시맵에 저장하고, 
@@ -290,6 +342,8 @@ LA 34 -118
 
 
 6. 큐와 스택에 대하여 설명하시오.(필수)
+스택 --- LIFO (last in first out)
+큐   --- FIFO (first in first out)	// 선입선출,,
 
 
 7. Map 에 대하여 설명하시오.
@@ -313,6 +367,32 @@ class ComparatorIntegerDemo {
     }
 }
 
+<풀이>
+package java_12_23;
+
+import java.util.Comparator;
+import java.util.TreeSet;
+
+class ComparatorIntegerDemo {
+	public static void main(String[] args) {
+		
+		TreeSet<Integer> tr = new TreeSet<>(new IntegerComparator());
+		tr.add(30);
+		tr.add(10);
+		tr.add(20);
+		System.out.println(tr);
+	}
+}
+
+class IntegerComparator implements Comparator<Integer> {
+	@Override
+	public int compare(Integer o1, Integer o2) {
+		return o2.intValue() - o1.intValue();
+	}
+}
+
 
 10. Objects.hash의 용도와 사용법은?
+
+
 
