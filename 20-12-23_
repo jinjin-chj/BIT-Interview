@@ -48,7 +48,7 @@ class CountryHashMap {
 
 			if (country.equals("그만"))
 				break;
-            
+           		 // 얘를 위에다 쓰면 그만 이후에도 계속 입력값을 대기하고 있으니까 다음 와일문이 안나오지.
 			population = sc.nextInt();
 			map.put(country, population);
 		}
