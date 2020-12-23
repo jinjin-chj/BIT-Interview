@@ -67,6 +67,8 @@ class CountryHashMap {
 			else
 				System.out.println(country + "의 인구는 " + num);
 		}
+		sc.close();
+		System.out.println("프로그램 종료.");
 	}
 }
 
