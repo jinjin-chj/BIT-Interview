@@ -1,5 +1,6 @@
 #23~24
 
+
 1. "그만"이 입력될 때까지 나라 이름과 인구를 입력받아 저장하고, 
 다시 나라 이름을 입력받아 인구를 출력하는 프로그램을 작성하라. 다음 해시맵을 이용하라.
 
@@ -24,6 +25,8 @@ France의 인구는 3000
 스위스 나라는 없습니다.
 
 인구 검색 >> 그만
+
+
 
 <풀이>
 
@@ -71,6 +74,7 @@ class CountryHashMap {
 		System.out.println("프로그램 종료.");
 	}
 }
+
 
 
 
@@ -141,7 +145,9 @@ ArrayList<Student>의 모든 학생(4명) 정보를 출력하고 학생 이름�
 
 학생 이름 >> 그만
 
-<풀이> 
+
+
+<풀이> - 내가 한 거.. 
 // 쉼표 없애는 법 모름, 
 // 학생 이름 입력하면 해당 학생의 정보가 나와야 하는데 그냥 전체 학생의 학점 평균 출력됨.
 
@@ -201,11 +207,11 @@ class StudentArrayList {
 			student[i] = new Student(name, dep, idNum, avg);
 			list.add(student[i]); // 저장 완료!
 		}
-		System.out.println("------------------");
+		System.out.println("-------------------------------");
 		// 전체 출력 부분
 		for (int i = 0; i < list.size(); i++) {
 			System.out.print(list.get(i));
-			System.out.println("------------------");
+			System.out.println("-------------------------------");
 		}
 		// 이름 입력받고 평균 출력하는 부분
 		while (true) {
@@ -223,8 +229,226 @@ class StudentArrayList {
 }
 
 
+
+<풀이> - 쌤이랑 한 거!!
+package java_12_23;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+class Student1 {
+	private String name, major, sNumber;
+	private double grade;
+
+	Student1(String name, String major, String sNumber, double grade) {
+		this.grade = grade;
+		this.major = major;
+		this.name = name;
+		this.sNumber = sNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public String getsNumber() {
+		return sNumber;
+	}
+
+	public double getGrade() {
+		return grade;
+	}
+}
+
+public class StudentWithT {
+	final static int STUDENT_NUM = 4;
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		try {
+			ArrayList<Student1> list = new ArrayList<>();
+			System.out.println("학생 이름 학과 학번 학점평균 입력하세요.");
+
+			for (int i = 0; i < STUDENT_NUM; i++) {
+				System.out.print(">> ");
+				String text = sc.nextLine(); // 한 줄 전체 받기
+
+				StringTokenizer st = new StringTokenizer(text, ",");
+				String name = st.nextToken().trim(); // trim은 양 옆 공백을 제거한다.
+				String major = st.nextToken().trim();
+				String sNumber = st.nextToken().trim();
+				double grade = Double.parseDouble(st.nextToken().trim()); // parseDouble 뭔지...
+
+				Student1 student = new Student1(name, major, sNumber, grade); // 여기까지 객체생성
+				list.add(student); // 생성한거 리스트에 넣음(저장)
+
+			}
+
+			Iterator<Student1> it = list.iterator();
+
+			while (it.hasNext()) {
+				Student1 student = it.next();
+				System.out.println("-------------------------------");
+				System.out.println("이름: " + student.getName());
+				System.out.println("학과: " + student.getMajor());
+				System.out.println("학번: " + student.getsNumber());
+				System.out.println("학점 평균: " + student.getGrade());
+
+			}
+			System.out.println("-------------------------------");
+
+			while (true) {
+				System.out.print("학생 이름 >> ");
+				String name = sc.nextLine();
+
+				if (name.equals("그만"))
+					break;
+
+				for (int i = 0; i < list.size(); i++) {
+					Student1 student = list.get(i);
+
+					if (student.getName().trim().equals(name.trim())) { // trim 넣는건 혹시 유저가 공백 입력하면 공백은 짤라라.
+						System.out.print(student.getName() + ", ");
+						System.out.print(student.getMajor() + ", ");
+						System.out.print(student.getsNumber() + ", ");
+						System.out.println(student.getGrade());
+						break;
+
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("프로그램 오류입니다.");
+		}
+
+		System.out.println("프로그램 종료.");
+		sc.close();
+	}
+}
+
+
+
+
 3. (2) ArrayList<Student> 대신, HashMap<String, Studnet> 해시맵을 이용하여 다시 작성하라. 
 해시맵에서 키는 학생 이름으로 한다.
+
+package java_12_23;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+class Student2 {
+	private String name, major, sNumber;
+	private double grade;
+
+	Student2(String name, String major, String sNumber, double grade) {
+		this.grade = grade;
+		this.major = major;
+		this.name = name;
+		this.sNumber = sNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public String getsNumber() {
+		return sNumber;
+	}
+
+	public double getGrade() {
+		return grade;
+	}
+}
+
+public class StudentHashMapWithT {
+	final static int STUDENT_NUM = 4;
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		try {
+			HashMap<String, Student2> map = new HashMap<>();
+			System.out.println("학생 이름 학과 학번 학점평균 입력하세요.");
+
+			for (int i = 0; i < STUDENT_NUM; i++) {
+
+				System.out.print(">> ");
+				String text = sc.nextLine(); // 한 줄 전체 받기
+				StringTokenizer st = new StringTokenizer(text, ",");
+				String name = st.nextToken().trim(); // trim은 양 옆 공백을 제거한다.
+				String major = st.nextToken().trim();
+				String sNumber = st.nextToken().trim();
+				double grade = Double.parseDouble(st.nextToken().trim()); 
+				// parseDouble: 입력받은 String 값을 double로 변환시켜주는 메소드
+				// 처음에 text를 nextLine으로 받아서 라인 전체가 스트링으로 들어감. 그래서 후 변환이 필요했음.
+
+				Student2 student = new Student2(name, major, sNumber, grade); // 여기까지 객체생성
+				map.put(name, student); // 생성한거 리스트에 넣음(저장)
+
+			}
+			Set<String> key = map.keySet(); // 해시맵 info에 있는 모든 키 Set 컬렉션으로 리턴
+			Iterator<String> it = key.iterator(); // Set을 순차검색하는 이터레이터 리턴
+
+			while (it.hasNext()) {
+				String name = it.next();
+				Student2 student = map.get(name); // 이름을 키로 하여 객체를 얻는다.
+				System.out.println("-------------------------------");
+				System.out.println("이름: " + student.getName());
+				System.out.println("학과: " + student.getMajor());
+				System.out.println("학번: " + student.getsNumber());
+				System.out.println("학점 평균: " + student.getGrade());		
+
+			}
+			System.out.println("-------------------------------");
+
+			while (true) {
+				System.out.print("학생 이름 >> ");
+				String name = sc.nextLine();
+
+				if (name.equals("그만"))
+					break;
+				Student2 student = map.get(name);
+
+				if (student == null) {
+					System.out.println("해당 학생은 없음");
+				} else {
+					System.out.print(student.getName() + ", ");
+					System.out.print(student.getMajor() + ", ");
+					System.out.print(student.getsNumber() + ", ");
+					System.out.println(student.getGrade());
+					break;
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("프로그램 오류입니다.");
+		}
+
+		System.out.println("프로그램 종료.");
+		sc.close();
+	}
+}
+
 
 
 
@@ -264,7 +488,8 @@ LA 34 -118
 
 도시 이름 >> 그만
 
-<풀이> // 하는 중!~~~
+
+<풀이> // 내가 한거!! 미완성
 package java_12_23;
 
 import java.util.HashMap;
@@ -282,7 +507,6 @@ class Location {
 	void Print() {
 		System.out.println(city + '\t' + lat + '\t' + lng);
 	}
-
 }
 
 class LocationHashMap {
@@ -306,8 +530,99 @@ class LocationHashMap {
 			System.out.print(map.get(i));
 		}
 
-	}	// 하는 중
+	}	// 미완!!
 
+}
+
+<풀이> with T!!
+package java_12_23;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+class Location {
+	private String city, lat, lng;
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	Location(String city, String lat, String lng) {
+		this.city = city;
+		this.lat = lat;
+		this.lng = lng;
+	}
+}
+
+class LocationHashMap {
+	final static int INPUT_NUM = 4;
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		HashMap<String, Location> map = new HashMap<>();
+
+		System.out.println("도시, 경도, 위도를 입력하세요.");
+
+		try {
+			for (int i = 0; i < INPUT_NUM; i++) {
+				System.out.print(">> ");
+				String text = sc.nextLine();
+
+				StringTokenizer st = new StringTokenizer(text, ",");
+				String city = st.nextToken().trim();
+				String lat = st.nextToken().trim();
+				String lng = st.nextToken().trim();
+
+				Location loc = new Location(city, lat, lng);
+				map.put(city, loc);
+			}
+
+			Set<String> key = map.keySet();
+			Iterator<String> it = key.iterator();
+
+			System.out.println("-------------------------------");
+			while (it.hasNext()) {
+				String city = it.next();
+				Location loc = map.get(city);
+				System.out.println(loc.getCity() + " " + loc.getLat() + " " + loc.getLng());
+			}
+			System.out.println("-------------------------------");
+
+			while (true) {
+				System.out.print("도시 이름 >> ");
+				String city = sc.nextLine();
+
+				if (city.equals("그만"))
+					break;
+				Location loc = map.get(city);
+
+				if (loc == null) {
+					System.out.println(city + "는 없습니다.");
+				} else {
+					System.out.println(loc.getCity() + " " + loc.getLat() + " " + loc.getLng());
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("프로그램 오류입니다.");
+		}
+		System.out.println("프로그램 종료.");
+		sc.close();
+	}
 }
 
 
