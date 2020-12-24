@@ -270,13 +270,6 @@ package java_12_23;
 import java.util.HashMap;
 import java.util.Scanner;
 
-/*4. 도시 이름, 위도, 경도 정보를 가진 Location 클래스를 작성하고, 
-도시 이름을 '키'로 하는 HashMap<String, Location> 컬렉션을 만들고, 
-사용자로부터 입력 받아 4개의 도시를 저장하라. 
-그리고 도시 이름으로 검색하는 프로그램을 작성하라.
-
-도시, 경도, 위도를 입력하세요.
- */
 class Location {
 	String city, lat, lng;
 
@@ -313,7 +306,7 @@ class LocationHashMap {
 			System.out.print(map.get(i));
 		}
 
-	}
+	}	// 하는 중
 
 }
 
@@ -355,6 +348,43 @@ class LocationHashMap {
    map.put(37, "James");
    map.put(23, "Martin");
    
+<풀이>
+package java_12_23;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
+class HashMapIteration {
+
+	public static void main(String[] args) {
+		HashMap<Integer, String> map = new HashMap<>();
+		
+		map.put(45, "Brown");
+		map.put(37, "James");
+		map.put(23, "Martin");
+
+		// Key만 담고 있는 컬렉션 인스턴스 생성
+		Set<Integer> ks = map.keySet();
+
+		// 전체 Key 출력 (for-each 기반)
+		for (Integer n : ks)
+			System.out.print(n.toString() + '\t');
+		System.out.println();
+
+		// 전체 Value 출력 (for-each 기반)
+		for (Integer n : ks)
+			System.out.print(map.get(n).toString() + '\t');
+		System.out.println();
+
+		// 전체 Value 출력 (반복자 기반)
+		for (Iterator<Integer> itr = ks.iterator(); itr.hasNext();)
+			System.out.print(map.get(itr.next()) + '\t');
+		System.out.println();
+	}
+}
+
+
    
 9. 아래의 IntegerComparator를 내림차순 정렬이 되게끔 구현하시오.
 class ComparatorIntegerDemo {
@@ -394,5 +424,15 @@ class IntegerComparator implements Comparator<Integer> {
 
 10. Objects.hash의 용도와 사용법은?
 
+(추가) 
+public static int hash(Object...values)
+// java.util.Objects 에 정의된 메소드 , 전달된 전달된 인자 기반의 해쉬 값 반환
 
+
+@Override
+public int hashCode() {
+	return Objects.hash(model, color); 
+}
+// 전달인자 model, color 기반 해쉬 값 반한
+// 전달된 인자를 모두 반영한 해쉬 값을 반환
 
