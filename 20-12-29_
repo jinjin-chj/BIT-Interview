@@ -1,0 +1,40 @@
+1.선택자란?
+
+
+2.CSS 문법은?
+css? = <style></style>
+style태그 안에 들어오게 되면 일반적인 html문법과 달라짐
+div { 
+property:value; } 이런 식임.
+
+ex)
+<style>
+	div{
+	background:#ffd800;
+	}
+</style>
+
+
+3.시멘틱 태그에 대하여 설명하고,그 종류는?
+
+
+4.bootstrap 에 대하여 설명하시오.
+
+
+5.overfolw 에 대하여 설명하시오.
+
+
+6.class 와 id 선택자의 차이와 어떨때 사용하는가?
+
+
+7.servlet의 생명주기에 대하여 설명하시오.
+
+[Servlet 라이프사이클]
+
+servlet 객체생성 (메모리에 클래스 올림) - 최초 한 번
+init() 호출 - 최초 한 번
+postdestroy - 최초 한 번
+service(), doGet(), doPost() 호출 - 요청시 매번
+destroy 호출 - 마지막 한 번
+predestroy
+
