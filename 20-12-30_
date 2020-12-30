@@ -2,25 +2,76 @@
 1.jsp/servlet 에서 한글처리 방식은?
 ■ Get 방식 요청
 톰캣 내에서는 server.xml 수정
-URIEncoding="EUC-KR" port="8282"~
+URIEncoding="EUC-KR" port="8282"...
 
 ■ Post 방식 요청
 (doPost 부분에 적을 것.)
 클라이언트 쪽에서는 request.setCharacterEncoding("EUC-KR"); 리퀘스트 메소드 이용.
 
 
+
 2.아래의 선택자에 대하여 설명하시오.
- >
- +
- ~
- a[href="https://net.tutsplus.com"]
+ > : 자식 선택자. 한 요소가 다른 요소의 직계 자식일 때 자식에게 적용. 
+ + : 인접 형제 선택자. 두 요소가 같은 부모를 가지고, 순서가 바로 앞뒤로 있어야 함.
+ ~ : 일반 형제 선택자. 두 요소가 같은 부모를 가지고, 순서는 뒤에 있기만 하면 됨.
+ a[href="https://net.tutsplus.com"] : 링크 선택자. 문서에서 링크되어 있는 문자를 선택하여 속성 설정 가능.
  
  
-3.웹어프리케이션 감시를 위한 프로그래밍 방법은?
+ 
+3.웹어플리케이션 감시를 위한 프로그래밍 방법은?
+- 웹어플리케이션의 생명주기를 감시하는 리스너(listener)가 있는데, ServletContextListener라고 한다.
+- 리스너의 해당 메소드가 웹 어플리케이션의 시작과 종료 시 호출됨.
+  1) 리스너 클래스 제작 
+   public class ContextListenerEx implements ServletContextListener( ) 클래스 생성.
+   ....
+  2) web.xml 파일에 리스너 클래스 기술
+   <listener>
+    <listener-class?com.bit.ex.ContextListenerEx</listener-class>
+   </listener>
+
 
 
 4.데이터 공유를 위한 ServletContext와 서블릿 초기화 파라미터 ServletConfig에 대하여 설명하시오.
+- 특정 서블릿이 생성될 때 초기에 필요한 데이터들이 있다. 예를 들어 특정 경로 및 아이디 정보 등.
+이러한 데이터들을 초기화 파라미터라고 하며, web.xml에 기술하고 서블릿 파일에서는 ServletConfig클래스를
+이용하여 접근하고 사용한다.
+또한 초기화 파라미터를 web.xml이 아닌 서블릿 파일에 직접 기술하는 것도 가능하다.
+
+예)
+public class ServletInitParam extends HttpServlet {
+  public ServletInitParam() {
+  ...}}
+
+protected void doGet(~~
+   String id = getInitParameter("id");
+   String pw = getInitParameter("pw");
+   String path = getInitParameter("path");
+   
+...이런식으로 클래스 생성한 뒤 파라미터 사용
+
+cf. 서블릿 파일에 직접 기술하는 것은 @사용.
 
 
 5.후손 선택자와 자식 선택자에 대하여 설명하시오.
+
+- 자손 선택자의 선택자 형태는 "선택자A > 선택자 B" 처럼 쓰며, 
+  선택자 A의 자손에 위치하는 선택자 B를 선택한다.
+- 후손 선택자의 선택자 형태는 "선택자A 선택자 B" 처럼 쓰며, 
+  선택자 A의 후손에 위치하는 선택자 B를 선택한다.
+
+예를들어 다음과 같이 html 이 작성되어 있을 경우,
+
+<div class="container">     
+  <h1> TITLE </h1>     
+  <ul>         
+     <li>list 1</li>         
+     <li>list 2</li>         
+     <li>list 3</li>     
+  </ul> 
+</div>
+
+이때 div의 자손 선택자는 h1, ul 이며, 후손 선택자는 li 들을 말한다.
+
+(출처: https://88240.tistory.com/363 [shaking blog])
+
 
