@@ -1,0 +1,93 @@
+
+1.절대경로와 상대경로에 대하여 설명하시오.
+- 절대 경로: 루트(root)부터 들어감. c:\, http://(인터넷), / ,...
+- 상대 경로: 자기 자신이 속한 폴더를 기준으로 경로 시작.
+
+
+2.아래의 action 속성에 대하여 아래의 3가지 케이스에 대하여 테스트 하고 결론을 내려 보세요.
+
+0105/request_send.jsp
+..0105/request_send.jsp
+/0105/request_send.jsp
+
+<form action="0105/request_send.jsp">
+당신의 나이는 : <input type="text" name="age" size="5">
+		<input type="submit" value="전송">
+	</form>
+==============================================================================
+<결론>
+
+  가. 전제
+     1) WebContent 폴더에는 하위 폴더로 폴더명 0105, 0106이 있다. 
+     2) request_send.jsp는 0105 폴더에, requestex.html은 0106 폴더에 있다.
+  나. 도출 과정
+     1) requestex.html -> request_send.jsp로 action 디렉토리를 향하려면 
+      먼저 자기 자신이 속해있는 0106 폴더에서 상위 폴더인 WebContent로 이동해야 하므로, 
+      ".."키워드를 사용해야 한다.
+     2) 그 다음 .jsp 파일이 속해있는 0105폴더로 이동하면 된다.
+  다. 결과
+     따라서 <form action="..0105/request_send.jsp">로 설정하는 것이 옳다.
+     
+(cf. ../ 이라는 건 상위폴더라는 의미)
+
+
+
+3. css에서의 position 의 4가지 설명하시오.
+- 종류: absolute, relative, fixed, static
+
+
+
+4. float 속성에 대하여 설명하시오.
+- 공중으로 띄운다~~
+float:left; 하면 옆으로 위치됨.
+float속성 해제하려면 clear:both;
+
+
+
+5.쿠키에 대하여 설명하시오.
+쿠키란? 연결성 유지를 위한 꼼수다.
+
+**쿠키 관련 메소드
+- setMaxAge() : 분단위, 쿠키 유효기간 설정
+-> cookie.setMaxAge(60); << 60분간 쿠키 유효, 시간 지나면 웹브라우저가 자동으로 쿠키 삭제.
+
+- response.addCookie(cookie); << 리스폰스 객체에 쿠키(입력한 아이디, pw) 담아라.
+- response.sentRedirect("welcome.jsp"); << 서버에서 쿠키 생성해서 ..
+쿠키라는 공간에 id내용,pw내용 담아서. 클라이언트가 그 다음에 서버에 접속하게 될 때,
+반드시 해당 서버에서 받은 쿠키 "같이" 전송. 접근할 때 마다. (새고할 때 마다) but, 유효 기간 내에서.
+
+cf. welcome.jsp 에서 받을 때.
+Cookie[] cookies = request.getCookie(); << 이렇게.
+
+- 로그아웃? 쿠키 삭제 해달라. 
+--> setMaxAge(0); 해서 유효기간 0분을 add쿠키(response.addCookie(cookie);) 해서 보내면 됨.
+
+- 웹브라우저 공간은 쿠키/ 캐쉬 공간 두개로 나뉨.
+캐쉬? 네이버에 접속했을 때 네이버의 이미지같은거 캐쉬 공간에 끌고 와서 디스플레이 보여줌. 
+일일이 저장 안 해도 볼 수 있게.
+
+
+
+6.액션 태그에 대하여 설명하시오.
+- 액션 태그? jsp페이지 내에서 어떤 동작을 하도록 지시하는 태그.
+- 종류: forward / include / param
+  1) forward 
+    jsp:forward page="oo.jsp"/>
+    :현재의 페이지에서 다른 특정페이지로 전환할 때 사용.
+    포워딩하면 주소는 메인의 주소 그대로. 리다이렉트하면 주소까지 서브로 바뀜.
+    접근은 메인으로 . 포워딩 읽자마자 내용만 서브. 포워딩은 서버-서버 간 전환.
+    (메인=main.jsp, 서브=sub.jsp)
+    리다이렉트는 주소를 서브로 넘겨버림. <- 클라이언트가 재 접속 하기 때문에.
+  2) include
+    include page 하면 해당 페이지를 가져와서 출력. 그냥 중간에 끼워넣는다고 보면 됨.
+    : 현재 페이지에 다른 페이지를 삽입할 때 사용
+  3) param
+    param name, value
+    한 페이지에서 다른 페이지로 넘기고 싶은 파라미터(변수)가 있을 때 사용.
+    forward, include 태그에 데이터 전달을 목적으로 사용되는 태그.
+    받을 땐>> 변수명 = request.getParameter("변수명");
+
+
+
+
+
