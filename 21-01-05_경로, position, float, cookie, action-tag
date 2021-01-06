@@ -6,9 +6,9 @@
 
 2.아래의 action 속성에 대하여 아래의 3가지 케이스에 대하여 테스트 하고 결론을 내려 보세요.
 
-0105/request_send.jsp
-..0105/request_send.jsp
-/0105/request_send.jsp
+0105/request_send.jsp	// 현재 폴더에서 0105폴더를 검색
+..0105/request_send.jsp	// 상위 폴더로 이동 후 파일 검색
+/0105/request_send.jsp	// 절대 경로이므로 컨텍스트명 필요
 
 <form action="0105/request_send.jsp">
 당신의 나이는 : <input type="text" name="age" size="5">
