@@ -1,0 +1,33 @@
+1. el 이란 무엇인가?
+
+
+2. jstl 문법에 대하여 설명하시오.
+
+
+3. scope 에 대하여 설명하시오.
+
+
+4. join의 종류에 대하여 설명하시오. 
+  1) CARTESIAN PRODUCT : 두 개 이상의 테이블이 조인될 때 where문 없으면 전체 결과 보여줌.
+  2) EQUI JOIN : 조인 조건에 서로 다른 조건을 가진 데이터를 (=)로 가져옴.
+  3) NON-EQUI JOIN(비등가 조인) : 같은 조건이 아닌 크거나 작거나 하는 경우 조인을 수행.
+  4) SELF JOIN : 자기 자신과 조인. 하나의 테이블 내에서 두개 이상의 정보 찾기. 별칭을 사용한다.
+  5) OUTER JOIN : 조인 조건에 만족하지 않는 행도 나타낸다. null값이어도 결과에 보여짐. (+)
+
+
+5. 아래를 sql 문으로 처리 하시오.
+-- EMP테이블을 EMPLOYEE와 MANAGER로 별칭을 지정한 후 특정 사원의 매니저가 누구인지 알아내는 쿼리문
+select e.name as EMPLOYEE, m.ename as MANAGER from emp e, emp m where e.mgr = m.empno;
+
+-- 사원 정보를 출력할 때, 각 사원이 소속된 부서의 상세 정보를 출력하기 위해 두 개의 테이블을 조인하는 쿼리문
+select * from emp, dept where emp.deptno = dept.deptno;
+
+-- 부서sal의 최대값과 최소값을 구하되, 최대 급여가 2900 이상인 부서만 출력하는 쿼리문
+select deptno, max(sal), min(sal) from emp group by deptno having max(sal) >= 2900;
+
+-- 부서별 사원의 수와 커미션을 받는 사원의 수를 계산하는 쿼리문
+select deptno, count(*), count(comm) from emp group by deptno;
+
+-- 소속 부서별 급여 총액과 평균 급여를 구하는 쿼리문
+select deptno"부서", avg(sal)"평균급여", sum(sal)"급여총액" from emp group by deptno;
+
