@@ -56,11 +56,10 @@ update emp set INCREASE = "New Salary" - sal;
 select ename "BEFORE", INITCAP(ename)"AFTER", length(ename) "LENGTH" from emp;
 
 --19> 사원의 이름과 커미션을 출력하되, 커미션이 책정되지 않은 사원의 커미션은 'no commission'으로 출력하라.
+select ename, nvl(TO_CHAR(comm),'no commission') "NEW COMM" from emp;   
 -- select ename, comm,
 --        case when comm is null then 'no commission'
---        end as NewComm from emp; -- 처음에 이렇게 해봤지만 아래가 더 적합.
-
-select ename, nvl(TO_CHAR(comm),'no commission') "NEW COMM" from emp;   
+--        end as NewComm from emp; -- 처음에 이렇게 해봤지만 위에가 적합.
 
 --20> 모든 사원의 이름, 부서번호, 부서이름을 표시하는 질의를 작성하라.(DECODE)
 select ename, deptno, decode(deptno,10,'ACCOUNTING ',20,'RESEARCH',30,'SALES',40,'OPERATIONS') "NEW DNAME" from emp order by deptno;
