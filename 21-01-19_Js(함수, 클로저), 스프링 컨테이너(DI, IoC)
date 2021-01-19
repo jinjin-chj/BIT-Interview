@@ -49,7 +49,103 @@ console.log(closure()); // 결과값: 'variable 1'
 select deptno, min(sal) from emp where (sal > (select min(sal) from emp where deptno= 30)) group by deptno;
 
 
-4. 삼각형및 사각형의 넓이를 구하는 프로그래밍을 IoC 컨테이너를 이용하여 프로그래밍 하시오.
+4. 삼각형 및 사각형의 넓이를 구하는 프로그래밍을 IoC 컨테이너를 이용하여 프로그래밍 하시오.
+
+=====<MainClass.java>=====================
+package edu.bit.ex;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		String configLocation = "classpath:area.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+		AreaInfo area = ctx.getBean("areaInfo", AreaInfo.class);
+		area.getInfo();
+		ctx.close();
+
+	}
+
+}
+
+
+=====<AreaInfo.java>===================
+package edu.bit.ex;
+
+public class AreaInfo {
+
+	private int width, height;
+	private double recArea, triArea;
+
+	public void getInfo() {
+		this.recArea = width * height;
+		this.triArea = width * height * 0.5;
+
+		System.out.println("가로, 세로의 길이가 " + width + ", " + height + "인 사각형의 넓이는 : " + getRecArea());
+		System.out.println("밑변, 높이가 " + width + ", " + height + "인 삼각형의 넓이는 : " + getTriArea());
+
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public double getRecArea() {
+		return recArea;
+	}
+
+	public void setRecArea(double recArea) {
+		this.recArea = recArea;
+	}
+
+	public double getTriArea() {
+		return triArea;
+	}
+
+	public void setTriArea(double triArea) {
+		this.triArea = triArea;
+	}
+
+}
+
+=====<area.xml>=======================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="areaInfo" class="edu.bit.ex.AreaInfo">
+		<property name="width">
+			<value>5</value>
+		</property>
+		<property name="height">
+			<value>4</value>
+		</property>
+	</bean>
+</beans>
+
+=====<결과>===========================
+가로, 세로의 길이가 5, 4인 사각형의 넓이는 : 20.0
+밑변, 높이가 5, 4인 삼각형의 넓이는 : 10.0
+
+
+
+
 
 
 
