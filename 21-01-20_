@@ -1,0 +1,188 @@
+1.아래를 설명하시오.
+-DI
+-IoC
+-IoC 컨테이너
+
+
+2.JS로 시간이 초단위로 갱신되는 페이지를 만드시오.
+
+
+3.js 에서의 객체생성 방법은?
+
+
+4.아래를 자바 스크립트로 작성하시오.
+-변수 radius
+-get set 함수 작성
+-프롬프트로 숫자 입력값 받음
+-set 함수를 radius 값 세팅
+-객체 생성후 getArea() 함수 호출하면 원넓이 출력
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function getArea() {
+			var radius = 0;
+
+			this.area = function() {
+				return ((this.radius * this.radius) * 3.14).toFixed(2);
+			};
+
+			this.getRadius = function() {
+				return this.radius;
+			};
+			this.setRadius = function(radius) {
+				if (!isNaN(radius)) {
+					this.radius = radius;
+				} else {
+					console.log("radius is NaN(Not a Number)!");
+				}
+				;
+			};
+		}
+
+		var radArea = new getArea();
+		var input = prompt("radius 값 입력하세요."); // 입력
+		radArea.setRadius(input);
+		document.write("원 넓이 : " + radArea.area());
+		console.log("radArea.area : " + radArea.area());
+	</script>
+</body>
+</html>
+
+
+5.위와 같은 방식으로 가위바위보 게임을 짜시오.
+-DOM 객체를 배우면 이미지도 바꿔 보도록 합시다. 일단은 이미지 없이 텍스트로만 구현.
+
+
+6.annotation 방식으로 하여 객체 생성후 사각형과 삼각형 넓이를 구하시오.
+(기존에 있던 AreaInfo.java를 활용하여 중간에 불필요한 요소가 있을 수 있음)
+
+<AraaInfo.java>
+package edu.bit.ex;
+
+public class AreaInfo {
+
+	private int width, height;
+	private double recArea, triArea;
+
+	public AreaInfo(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public double getRecArea() {
+		return this.width * this.height;
+	}
+
+	public void setRecArea(double recArea) {
+		this.recArea = recArea;
+	}
+
+	public double getTriArea() {
+		return this.width * this.height * 0.5;
+	}
+
+	public void setTriArea(double triArea) {
+		this.triArea = triArea;
+	}
+
+}
+
+<ApplicationConfig.java>
+package edu.bit.ex;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ApplicationConfig {
+
+	@Bean
+	public AreaInfo rec() {
+
+		AreaInfo area = new AreaInfo(5, 4);
+		area.setRecArea(0);	// 이게 맞는건지?
+		return area;
+	}
+
+	@Bean
+	public AreaInfo tri() {
+
+		AreaInfo area = new AreaInfo(5, 4);
+		area.setTriArea(0);
+		return area;
+	}
+}
+
+<AreaMain_anotation>
+package edu.bit.ex;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class AreaMain_anotation {
+
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+		AreaInfo rec = ctx.getBean("rec", AreaInfo.class);
+		System.out.println("가로 : " + rec.getWidth());
+		System.out.println("세로 : " + rec.getHeight());
+		System.out.println("사긱형 넓이 : " + rec.getRecArea());
+		
+		System.out.println("----------------------");
+
+		AreaInfo tri = ctx.getBean("tri", AreaInfo.class);
+		System.out.println("밑변 : " + tri.getWidth());
+		System.out.println("높이 : " + tri.getHeight());
+		System.out.println("삼각형 넓이 : " + tri.getTriArea());
+		ctx.close();
+
+	}
+}
+
+<결과>
+가로 : 5
+세로 : 4
+사격형 넓이 : 20.0
+----------------------
+밑변 : 5
+높이 : 4
+삼각형 넓이 : 10.0
+
+
+
+7.금일 배운 Pencil의 예처럼 아래를 인터 페이스를 구현하여, 원, 삼각형, 사각형의 넓이를 설정파일 에서 바꾸면 각각의 넓이가 구하여지도록 하시오.
+
+interface IShape{
+	double getArea();
+}
+
+
+8.스프링 미리 공부 구현 해야될 내용-미리준비해 놓읍시다.(한마디로 외워 제낍시다).
+스프링 게시판(오라클 + 마이바티스),스프링 시큐리티, 소셜로그인(OAuth2)-카카오,네이버 먼저, 결재구현(아임포트)
+
+
+
+
+
