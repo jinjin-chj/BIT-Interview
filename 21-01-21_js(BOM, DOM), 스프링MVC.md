@@ -104,7 +104,7 @@ Ver.1 <테이블 없이>
 </body>
 </html>
 ~~~
-![rcp결과](rcp결과.jpg)
+![rcp결과](./img/rcp결과.jpg)
 
 
 Ver 2. <테이블 추가>
@@ -206,7 +206,7 @@ tr td {
 
 </html>
 ~~~
-![rcp테이블](rcp테이블.jpg)
+![rcp테이블](./img/rcp테이블.jpg)
 
 
 ## 4. Bom , 과 Dom 이란?
