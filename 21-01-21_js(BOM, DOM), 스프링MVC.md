@@ -7,10 +7,18 @@
 
 
 ## 2. sql 문제
--17. 부서별 급여 평균을 출력하시오.
--18. 오늘은 몇요일인가? 
--10. EMP Table에서 급여가 1800 이상이면 ‘good’, 아니면 ‘poor’를 출력하시오. 
-
+>> 17. 부서별 급여 평균을 출력하시오.
+select deptno, trunc(avg(sal)) from emp group by deptno;
+>> 18. 오늘은 몇요일인가? 
+select sysdate, to_char(sysdate, 'day') as day from dual;
+>> 10. EMP Table에서 급여가 1800 이상이면 ‘good’, 아니면 ‘poor’를 출력하시오. 
+select ename, sal, 
+    case when sal >= 1800 then 'good'
+        when sal<1800 then 'poor' 
+        end as RESULT from emp order by sal asc;
+	
+	
+	
 ## 3. 가위바위보 이미지 넣어서 짜시오.
 Ver.1 <테이블 없이>
 ~~~javascript
