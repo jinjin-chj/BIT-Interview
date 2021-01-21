@@ -2,6 +2,10 @@
 
 update mvc_board set bStep = bStep + 1 where bGroup = ? and bStep > ?
 
+>> 답변 간의 순서를 정해주기 위한 조건. 같은 그룹번호 내에서 (같은 원글을 가지고 있을 경우) 
+작성 일자가 빠른 답변이 위로 오게 된다.
+
+
 ## 2. sql 문제
 -17. 부서별 급여 평균을 출력하시오.
 -18. 오늘은 몇요일인가? 
@@ -206,13 +210,16 @@ tr td {
 
 </html>
 ~~~
-![rcp테이블](https://user-images.githubusercontent.com/75013048/105341660-b6c5ec80-5c22-11eb-855e-27e30f212413.JPG))
+
+![rcp테이블](https://user-images.githubusercontent.com/75013048/105341660-b6c5ec80-5c22-11eb-855e-27e30f212413.JPG)
 
 
 ## 4. Bom , 과 Dom 이란?
 
 ## 5. <조별회의 시간에 토의 해보기>
-메인클래스에서 제네릭 쓸 때,
-shape.setWidth(10); 에 왜 에러나냐? 메모리 올리는 거랑 관련해서 이해하기
-왜 get은 되는데 set은 에러나냐?
+메인클래스에서 제네릭 쓸 때,  
+shape.setWidth(10); 에 왜 에러나냐? 메모리 올리는 거랑 관련해서 이해하기.  
+왜 get은 되는데 set은 에러나냐?  
+
+>> 다형성. 부모=자식 이 관계라서 부모는 자식의 set함수에 접근할 수 없다.
 
